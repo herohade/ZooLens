@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.width
@@ -29,6 +28,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.style.TextOverflow
@@ -42,7 +42,7 @@ import kotlin.math.max
 @Composable
 fun SearchScreen(
     language: String = "de",
-    onOpenAnimal: () -> Unit = {}
+    onOpenAnimal: (id: String) -> Unit = {}
 ) {
     val animalsState = remember { mutableStateOf<List<AnimalWrapper>>(emptyList()) }
 
@@ -143,13 +143,6 @@ fun SearchScreen(
                 Text(LocalStrings.current.search, style = MaterialTheme.typography.headlineMedium)
             }
 
-            // Button centered
-            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                Button(onClick = onOpenAnimal) {
-                    Text("Open Animal")
-                }
-            }
-
             // Search field uses same horizontal bounds (no extra padding)
             OutlinedTextField(
                 value = query,
@@ -212,9 +205,8 @@ fun SearchScreen(
                             val content = wrapper.getContent(language)
                             AnimalGridItem(
                                 name = content.name,
-                                description = content.shortDescription,
                                 itemWidth = itemWidth,
-                                onClick = { /* TODO: navigate to details */ }
+                                onClick = { onOpenAnimal(wrapper.id) }
                             )
                         }
                     }
@@ -225,7 +217,7 @@ fun SearchScreen(
 }
 
 @Composable
-private fun AnimalGridItem(name: String, description: String, itemWidth: Dp, onClick: () -> Unit = {}) {
+private fun AnimalGridItem(name: String, itemWidth: Dp, onClick: () -> Unit = {}) {
     // Make each item a square by forcing aspect ratio 1:1
     Card(
         shape = RoundedCornerShape(10.dp),
@@ -235,26 +227,29 @@ private fun AnimalGridItem(name: String, description: String, itemWidth: Dp, onC
             .clickable(onClick = onClick),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
+        // Single Column fills the card and pushes content to the bottom so headings + scientificName are aligned
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = name,
-                style = MaterialTheme.typography.titleLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Spacer(modifier = Modifier.padding(4.dp))
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodyMedium,
-                maxLines = 5,
-                overflow = TextOverflow.Ellipsis
-            )
+            // Inner column keeps texts grouped and centered horizontally
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = name,
+                    modifier = Modifier.fillMaxWidth(),
+                    style = MaterialTheme.typography.titleLarge,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
     }
 }
