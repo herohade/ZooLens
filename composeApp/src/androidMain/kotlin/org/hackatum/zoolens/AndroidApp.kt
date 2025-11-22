@@ -27,11 +27,14 @@ import org.hackatum.zoolens.i18n.LocalStrings
 import org.hackatum.zoolens.i18n.stringsFor
 import org.hackatum.zoolens.ui.navigation.Route
 import org.hackatum.zoolens.ui.screens.AIScreen
+import org.hackatum.zoolens.ui.screens.AnimalScreen
 import org.hackatum.zoolens.ui.screens.HomeScreen
 import org.hackatum.zoolens.ui.screens.MapScreen
 import org.hackatum.zoolens.ui.screens.SearchScreen
 import org.hackatum.zoolens.ui.screens.SettingsScreen
 import org.hackatum.zoolens.ui.theme.ZoolensTheme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Button
 
 @Composable
 fun AndroidApp() {
@@ -43,8 +46,14 @@ fun AndroidApp() {
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination: NavDestination? = backStackEntry?.destination
 
-        val selectedIndex = routes.indexOfFirst { it.name == currentDestination?.route }
-            .takeIf { it >= 0 } ?: 0
+        // Keep Search tab highlighted when on the non-tab Animal route
+        val selectedIndex = run {
+            val dest = currentDestination?.route
+            when {
+                dest == "Animal" -> routes.indexOf(Route.Search)
+                else -> routes.indexOfFirst { it.name == dest }.takeIf { it >= 0 } ?: 0
+            }
+        }
 
         CompositionLocalProvider(LocalStrings provides stringsFor(language)) {
             Scaffold(
@@ -91,7 +100,9 @@ fun AndroidApp() {
                         startDestination = Route.Home.name
                     ) {
                         composable(Route.Home.name) { HomeScreen() }
-                        composable(Route.Search.name) { SearchScreen() }
+                        composable(Route.Search.name) {
+                            SearchScreen(onOpenAnimal = { navController.navigate("Animal") })
+                        }
                         composable(Route.AI.name) { AIScreen() }
                         composable(Route.Map.name) { MapScreen() }
                         composable(Route.Settings.name) {
@@ -100,6 +111,8 @@ fun AndroidApp() {
                                 onLanguageChange = { lang -> language = lang }
                             )
                         }
+                        // Non-tab destination: Animal detail (no id for now)
+                        composable("Animal") { AnimalScreen() }
                     }
                 }
             }
