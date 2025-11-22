@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,10 +19,76 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.hackatum.zoolens.i18n.LocalStrings
 import org.hackatum.zoolens.model.AnimalWrapper
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import zoolens.composeapp.generated.resources.Res
-import zoolens.composeapp.generated.resources.mypaw
+
+@Composable
+fun AnimalName(name: String) {
+    Text(
+        text = name,
+        style = MaterialTheme.typography.headlineMedium,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+@Composable
+fun AnimalScientificName(scientificName: String?) {
+    Text(
+        text = scientificName ?: "",
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+        color = MaterialTheme.colorScheme.onSurfaceVariant
+    )
+}
+
+@Composable
+fun AnimalDescription(description: String, scrollState: androidx.compose.foundation.ScrollState, modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .verticalScroll(scrollState)
+            .padding(horizontal = 16.dp, vertical = 12.dp)
+    ) {
+        Text(
+            text = description,
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+@Composable
+fun AssistantPanel(userInput: androidx.compose.runtime.MutableState<String>) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surface)
+            .padding(8.dp)
+    ) {
+        Text(
+            text = LocalStrings.current.askAssistant,
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
+            contentAlignment = Alignment.CenterEnd
+        ) {
+            BasicTextField(
+                value = userInput.value,
+                onValueChange = { userInput.value = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 48.dp)
+                    .padding(8.dp),
+                singleLine = true,
+                textStyle = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            )
+        }
+    }
+}
 
 @Composable
 @Preview
@@ -112,84 +176,14 @@ fun AnimalScreen(id: String) {
     val content = contentWrapper.en
 
     Column(modifier = Modifier.fillMaxSize()) {
-        // Section 1: Animal name
-        Text(
-            text = content?.name ?: "Error",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(16.dp)
+        AnimalName(content.name)
+        AnimalScientificName(content.scientific_name)
+        // Image here if I don't forget lolol
+        AnimalDescription(
+            description = content.shortDescription,
+            scrollState = scrollState,
+            modifier = Modifier.weight(1f)
         )
-
-        // Section 2: Latin name
-        Text(
-            text = content?.scientific_name ?: "Error",
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-
-        // Section 3: Image (optional - not rendered here as per requirements)
-        // Image would go here if available
-
-        // Section 4: Description (scrollable, takes bulk of screen)
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .verticalScroll(scrollState)
-                .padding(horizontal = 16.dp, vertical = 12.dp)
-        ) {
-            Text(
-                text = content?.shortDescription ?: "Error",
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-
-        // Section 5: Assistant panel at the bottom with text input and send button
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(8.dp)
-        ) {
-            Text(
-                text = LocalStrings.current.askAssistant,
-                style = MaterialTheme.typography.labelMedium,
-                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
-            )
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
-                contentAlignment = Alignment.CenterEnd
-            ) {
-                BasicTextField(
-                    value = userInput.value,
-                    onValueChange = { userInput.value = it },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 48.dp)
-                        .padding(8.dp),
-                    singleLine = true,
-                    textStyle = MaterialTheme.typography.bodySmall.copy(
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                )
-
-                IconButton(
-                    onClick = {
-                        // TODO: Send message to LLM
-                        userInput.value = ""
-                    },
-                    modifier = Modifier.padding(end = 4.dp)
-                ) {
-                    Icon(
-//                        imageVector = Icons.AutoMirrored.Filled.Send,
-                        painter = painterResource(Res.drawable.mypaw),
-                        contentDescription = "Send message"
-                    )
-                }
-            }
-        }
+        AssistantPanel(userInput)
     }
 }
