@@ -19,26 +19,109 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.hackatum.zoolens.i18n.LocalStrings
+import org.hackatum.zoolens.model.AnimalWrapper
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import zoolens.composeapp.generated.resources.Res
-import zoolens.composeapp.generated.resources.compose_multiplatform
+import zoolens.composeapp.generated.resources.mypaw
 
 @Composable
-fun AnimalScreen() {
+@Preview
+fun AnimalScreen(id: String) {
     val userInput = remember { mutableStateOf("") }
     val scrollState = rememberScrollState()
 
+    val contentWrapper = listOf(
+        AnimalWrapper(
+            id = "1",
+            de = org.hackatum.zoolens.model.AnimalContent(
+                id = "1",
+                name = "Löwe",
+                shortDescription = "Große Raubkatze, lebt in Rudeln.",
+                scientific_name = "Panthera leo",
+                continent = "Afrika",
+                conservationStatus = "Vulnerable",
+                diet = "Fleischfresser",
+                habitat = listOf("Savanne"),
+                funFacts = listOf("Löwen leben in Rudeln", "Männliche Löwen haben Mähnen")
+            ),
+            en = org.hackatum.zoolens.model.AnimalContent(
+                id = "1",
+                name = "Lion",
+                shortDescription = "Large big cat living in prides.",
+                scientific_name = "Panthera leo",
+                continent = "Africa",
+                conservationStatus = "Vulnerable",
+                diet = "Carnivore",
+                habitat = listOf("Savannah"),
+                funFacts = listOf("Lions live in prides", "Male lions have manes")
+            )
+        ),
+        AnimalWrapper(
+            id = "2",
+            de = org.hackatum.zoolens.model.AnimalContent(
+                id = "2",
+                name = "Giraffe",
+                shortDescription = "Größtes Landtier mit sehr langem Hals.",
+                scientific_name = "Giraffa camelopardalis",
+                continent = "Afrika",
+                conservationStatus = "Vulnerable",
+                diet = "Pflanzenfresser",
+                habitat = listOf("Savanne"),
+                funFacts = listOf("Giraffen haben lange Hälse")
+            ),
+            en = org.hackatum.zoolens.model.AnimalContent(
+                id = "2",
+                name = "Giraffe",
+                shortDescription = "Tallest land animal with a very long neck.",
+                scientific_name = "Giraffa camelopardalis",
+                continent = "Africa",
+                conservationStatus = "Vulnerable",
+                diet = "Herbivore",
+                habitat = listOf("Savannah"),
+                funFacts = listOf("Giraffes have long necks")
+            )
+        ),
+        AnimalWrapper(
+            id = "3",
+            de = org.hackatum.zoolens.model.AnimalContent(
+                id = "3",
+                name = "Elefant",
+                shortDescription = "Großes, intelligentes Säugetier mit Rüssel.",
+                scientific_name = "Loxodonta africana",
+                continent = "Afrika",
+                conservationStatus = "Vulnerable",
+                diet = "Pflanzenfresser",
+                habitat = listOf("Savanne", "Wälder"),
+                funFacts = listOf("Elefanten haben ein hervorragendes Gedächtnis")
+            ),
+            en = org.hackatum.zoolens.model.AnimalContent(
+                id = "3",
+                name = "Elephant",
+                shortDescription = "Large intelligent mammal with a trunk.",
+                scientific_name = "Loxodonta africana",
+                continent = "Africa",
+                conservationStatus = "Vulnerable",
+                diet = "Herbivore",
+                habitat = listOf("Savannah", "Forests"),
+                funFacts = listOf("Elephants have excellent memory")
+            )
+        )
+    )[id.toIntOrNull() ?: 0]
+    val content = contentWrapper.en
+
     Column(modifier = Modifier.fillMaxSize()) {
-        // Section 1: Animal name (hardcoded)
+        // Section 1: Animal name
         Text(
-            text = "Lion",
+            text = content?.name ?: "Error",
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(16.dp)
         )
 
-        // Section 2: Latin name (hardcoded)
+        // Section 2: Latin name
         Text(
-            text = "Panthera leo",
+            text = content?.scientific_name ?: "Error",
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -56,12 +139,7 @@ fun AnimalScreen() {
                 .padding(horizontal = 16.dp, vertical = 12.dp)
         ) {
             Text(
-                text = "The lion is a large felid of the genus Panthera native to the African savanna. " +
-                    "It is characterized by its golden-tan coat and, in males, a distinctive mane around the head and neck. " +
-                    "Lions are social animals and live in groups called prides. They are apex predators and play a crucial role " +
-                    "in their ecosystem. Known as the 'King of Beasts,' lions have captivated human imagination for millennia. " +
-                    "They are incredibly powerful hunters, with males weighing up to 250 kg. Despite their fearsome reputation, " +
-                    "lions spend much of their time resting and sleeping.",
+                text = content?.shortDescription ?: "Error",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
@@ -74,7 +152,7 @@ fun AnimalScreen() {
                 .padding(8.dp)
         ) {
             Text(
-                text = "Ask Assistant",
+                text = LocalStrings.current.askAssistant,
                 style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
             )
@@ -107,7 +185,7 @@ fun AnimalScreen() {
                 ) {
                     Icon(
 //                        imageVector = Icons.AutoMirrored.Filled.Send,
-                        painter = painterResource(Res.drawable.compose_multiplatform),
+                        painter = painterResource(Res.drawable.mypaw),
                         contentDescription = "Send message"
                     )
                 }

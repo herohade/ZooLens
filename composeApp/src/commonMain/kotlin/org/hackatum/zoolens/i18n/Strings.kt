@@ -8,6 +8,8 @@ data class AppStrings(
     val map: String,
     val settings: String,
     val toggleLanguage: String,
+    val noResult: String,
+    val askAssistant: String,
 )
 
 val EnStrings = AppStrings(
@@ -17,6 +19,8 @@ val EnStrings = AppStrings(
     map = "Map",
     settings = "Settings",
     toggleLanguage = "Toggle Language",
+    noResult = "No results",
+    askAssistant = "Ask Mogli",
 )
 
 val DeStrings = AppStrings(
@@ -26,6 +30,8 @@ val DeStrings = AppStrings(
     map = "Karte",
     settings = "Einstellungen",
     toggleLanguage = "Sprache umschalten",
+    noResult = "Keine Treffer",
+    askAssistant = "Frag Mogli",
 )
 
 val LocalStrings = staticCompositionLocalOf { EnStrings }

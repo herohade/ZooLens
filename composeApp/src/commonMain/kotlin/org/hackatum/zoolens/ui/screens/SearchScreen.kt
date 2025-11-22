@@ -188,7 +188,7 @@ fun SearchScreen(
 
                 if (filtered.isEmpty()) {
                     Text(
-                        text = "Keine Treffer",
+                        text = LocalStrings.current.noResult,
                         modifier = Modifier.padding(16.dp),
                         style = MaterialTheme.typography.bodyLarge
                     )

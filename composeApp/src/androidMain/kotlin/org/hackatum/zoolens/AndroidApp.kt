@@ -33,8 +33,6 @@ import org.hackatum.zoolens.ui.screens.MapScreen
 import org.hackatum.zoolens.ui.screens.SearchScreen
 import org.hackatum.zoolens.ui.screens.SettingsScreen
 import org.hackatum.zoolens.ui.theme.ZoolensTheme
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Button
 
 @Composable
 fun AndroidApp() {
@@ -101,7 +99,10 @@ fun AndroidApp() {
                     ) {
                         composable(Route.Home.name) { HomeScreen() }
                         composable(Route.Search.name) {
-                            SearchScreen(onOpenAnimal = { navController.navigate("Animal") })
+                            SearchScreen(onOpenAnimal = { id ->
+                                navController.currentBackStackEntry?.savedStateHandle?.set("animalId", id)
+                                navController.navigate("Animal")
+                            })
                         }
                         composable(Route.AI.name) { AIScreen() }
                         composable(Route.Map.name) { MapScreen() }
@@ -111,8 +112,12 @@ fun AndroidApp() {
                                 onLanguageChange = { lang -> language = lang }
                             )
                         }
-                        // Non-tab destination: Animal detail (no id for now)
-                        composable("Animal") { AnimalScreen() }
+                        // Non-tab destination: Animal detail
+                        composable("Animal") { backStackEntry ->
+//                            val id = backStackEntry.arguments?.getString("id") ?: ""
+                            val id = backStackEntry.savedStateHandle.get<String>("animalId") ?: ""
+                            AnimalScreen(id = id)
+                        }
                     }
                 }
             }

@@ -121,10 +121,14 @@ fun SearchNavHost() {
         startDestination = "SearchMain"
     ) {
         composable("SearchMain") {
-            SearchScreen(onOpenAnimal = { searchNavController.navigate("Animal") })
+            SearchScreen(onOpenAnimal = { id ->
+                searchNavController.currentBackStackEntry?.savedStateHandle?.set("animalId", id)
+                searchNavController.navigate("Animal")
+            })
         }
-        composable("Animal") {
-            AnimalScreen()
+        composable("Animal") { backStackEntry ->
+            val id = backStackEntry.savedStateHandle.get<String>("animalId") ?: ""
+            AnimalScreen(id = id)
         }
     }
 }
