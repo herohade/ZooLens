@@ -1,0 +1,459 @@
+[
+  {
+    "id": "alpaka",
+    "de": {
+      "id": "alpaka",
+      "name": "Alpaka",
+      "shortDescription": "Seit vielen Tausend Jahren werden Alpakas in den Anden zur Wollgewinnung gezüchtet. Sie fressen sehr wenig und sind perfekt an die rauen Lebensbedingungen angepasst.",
+      "scientific_name": "Vicugna pacos",
+      "continent": "Amerika",
+      "conservationStatus": "Nicht beurteilt",
+      "taxonomy": {
+        "family": "Kamele",
+        "latin_family": "Camelidae"
+      },
+      "characteristics": {
+        "weight": {
+          "text": "55 – 65 kg",
+          "min_kg": 55,
+          "max_kg": 65
+        }
+      },
+      "habitat": [
+        "Kalte Höhenlagen",
+        "Grasland und Steppen"
+      ],
+      "diet": "Gras (ca. 1 kg pro Tag)",
+      "lifespan": {
+        "wild": null,
+        "captivity": null
+      },
+      "funFacts": [
+        "Alpakas und Lamas spucken mit erstaunlicher Treffsicherheit - die Spucke besteht hauptsächlich aus Futterbrei und ätzender Magensäure"
+      ],
+      "sections": [
+        {
+          "title": "Das Schaf der Anden",
+          "text": "Seit vielen Tausend Jahren werden Alpakas in den Anden zur Wollgewinnung gezüchtet. Die Einführung von Schafen durch die spanischen Eroberer im 17. Jh. hat sie an den Rand der Ausrottung gebracht. Mit dem Ende des Kolonialismus haben sich die Bestände schnell wieder erholt."
+        },
+        {
+          "title": "Feuchte Kommunikation",
+          "text": "Alpakas sind eng verwandt mit Lamas und gehören zur Familie der Kamele. Sie sind etwas kleiner und deutlich leichter als ihre Verwandten. Eine der Gemeinsamkeiten von Alpakas und Lamas ist, dass sie bei Auseinandersetzungen mit Artgenossen spucken. Dabei beweisen sie eine erstaunliche Treffsicherheit. Die „Spucke\" besteht hauptsächlich aus Futterbrei und ätzender Magensäure. Alpakas fressen nur ca. 1 kg Gras pro Tag. Für ihre Größe ist das sehr wenig – eine perfekte Anpassung an die rauen Lebensbedingungen hoch in den Anden."
+        },
+        {
+          "title": "Verbreitung",
+          "text": null
+        }
+      ]
+    },
+    "en": {
+      "id": "alpaka",
+      "name": "Alpaca",
+      "shortDescription": "Alpacas have been bred in the Andes for thousands of years for their wool. They eat very little and are perfectly adapted to harsh living conditions.",
+      "scientific_name": "Vicugna pacos",
+      "continent": "America",
+      "conservationStatus": "Not evaluated",
+      "taxonomy": {
+        "family": "Camelids",
+        "latin_family": "Camelidae"
+      },
+      "characteristics": {
+        "weight": {
+          "text": "55 – 65 kg",
+          "min_kg": 55,
+          "max_kg": 65
+        }
+      },
+      "habitat": [
+        "Cold high altitudes",
+        "Grasslands and steppes"
+      ],
+      "diet": "Grass (approx. 1 kg per day)",
+      "lifespan": {
+        "wild": null,
+        "captivity": null
+      },
+      "funFacts": [
+        "Alpacas and llamas spit with amazing accuracy - the spit consists mainly of food pulp and corrosive stomach acid"
+      ],
+      "sections": [
+        {
+          "title": "The Sheep of the Andes",
+          "text": "Alpacas have been bred in the Andes for thousands of years for wool production. The introduction of sheep by the Spanish conquerors in the 17th century brought them to the brink of extinction. With the end of colonialism, stocks recovered quickly."
+        },
+        {
+          "title": "Moist Communication",
+          "text": "Alpacas are closely related to llamas and belong to the camel family. They are slightly smaller and significantly lighter than their relatives. One of the similarities between alpacas and llamas is that they spit during disputes with conspecifics. They demonstrate amazing accuracy. The \"spit\" consists mainly of food pulp and corrosive stomach acid. Alpacas only eat about 1 kg of grass per day. This is very little for their size – a perfect adaptation to the harsh living conditions high in the Andes."
+        },
+        {
+          "title": "Distribution",
+          "text": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "alpensteinbock",
+    "de": {
+      "id": "alpensteinbock",
+      "name": "Alpensteinbock",
+      "shortDescription": "Mitte des 19. Jahrhunderts nahezu ausgerottet, konnte sich der Alpensteinbock durch Schutzmaßnahmen und Auswilderungsprojekte erholen und gilt heute nicht mehr als gefährdet.",
+      "scientific_name": "Capra ibex",
+      "continent": "Europa",
+      "conservationStatus": "Nicht gefährdet",
+      "taxonomy": {
+        "family": "Hornträger",
+        "latin_family": "Bovidae"
+      },
+      "characteristics": {
+        "weight": {
+          "text": "♀ 40 – 50 kg, ♂ 70 – 120 kg",
+          "min_kg": 40,
+          "max_kg": 120
+        }
+      },
+      "habitat": [
+        "Gebirge"
+      ],
+      "diet": null,
+      "lifespan": {
+        "wild": null,
+        "captivity": null
+      },
+      "funFacts": [
+        "Die Hörner der Böcke erreichen über einen Meter Länge - beim Kampf stellen sich die Tiere auf die Hinterbeine und stoßen ihre Hörner mit großer Wucht aufeinander"
+      ],
+      "sections": [
+        {
+          "title": "Kampfstarke Hörner",
+          "text": "Den Geschlechtsunterschied erkennt man deutlich an den Hörnern: Die Hörner der Böcke erreichen eine Länge von über einem Meter, die der Weibchen sind nur ein Drittel so lang. Das Gewicht der Böcke liegt bei etwa 70 bis 120 kg, das der Weibchen ist deutlich geringer. Die Hörner sind ein Kampfinstrument: Die Tiere stellen sich auf ihre Hinterbeine und stoßen ihre Hörner mit großer Wucht auf die ihrer Gegner."
+        },
+        {
+          "title": "Erfolgreicher Artenschutz",
+          "text": "Mitte des 19. Jahrhunderts war der Alpensteinbock nahezu ausgerottet: Vor allem die Hörner, aber auch die Felle waren begehrte Jagdtrophäen. Weniger als 100 Exemplare konnten im italienischen Gran Paradiso überleben. Schutz und Auswilderungsprojekte haben dazu geführt, dass sich der Bestand erholen konnte. Heute wird die Tierart deshalb nicht mehr als gefährdet eingestuft. Die Kitze können ihrer Mutter schon etwa eine Stunde nach der Geburt am steilen Fels folgen."
+        },
+        {
+          "title": "Verbreitung",
+          "text": null
+        }
+      ]
+    },
+    "en": {
+      "id": "alpensteinbock",
+      "name": "Alpine Ibex",
+      "shortDescription": "Nearly extinct in the mid-19th century, the Alpine Ibex has recovered through conservation measures and reintroduction projects and is no longer considered endangered.",
+      "scientific_name": "Capra ibex",
+      "continent": "Europe",
+      "conservationStatus": "Least Concern",
+      "taxonomy": {
+        "family": "Bovids",
+        "latin_family": "Bovidae"
+      },
+      "characteristics": {
+        "weight": {
+          "text": "♀ 40 – 50 kg, ♂ 70 – 120 kg",
+          "min_kg": 40,
+          "max_kg": 120
+        }
+      },
+      "habitat": [
+        "Mountains"
+      ],
+      "diet": null,
+      "lifespan": {
+        "wild": null,
+        "captivity": null
+      },
+      "funFacts": [
+        "The horns of the bucks reach over a meter in length - during fights, the animals stand on their hind legs and clash their horns together with great force"
+      ],
+      "sections": [
+        {
+          "title": "Fighting Horns",
+          "text": "The difference between sexes is clearly visible in the horns: The bucks' horns reach a length of over a meter, while the females' are only a third as long. The weight of the bucks is about 70 to 120 kg, while females are significantly lighter. The horns are an instrument of battle: The animals stand on their hind legs and clash their horns with great force against their opponents."
+        },
+        {
+          "title": "Successful Conservation",
+          "text": "In the mid-19th century, the Alpine Ibex was nearly extinct: Their horns and fur were coveted hunting trophies. Fewer than 100 specimens survived in the Italian Gran Paradiso. Protection and reintroduction projects have allowed the population to recover. Today, the species is no longer classified as endangered. Kids (young ibex) can follow their mothers on steep rocks just an hour after birth."
+        },
+        {
+          "title": "Distribution",
+          "text": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "alpensteinhuhn",
+    "de": {
+      "id": "alpensteinhuhn",
+      "name": "Alpensteinhuhn",
+      "shortDescription": "Alpensteinhühner sind in felsigen Steilhängen hervorragend getarnt und geschickte Kletterer. Im bayerischen Alpenraum sind sie einer der seltensten Brutvögel.",
+      "scientific_name": "Alectoris graeca saxatilis",
+      "continent": "Welt der Vögel",
+      "conservationStatus": "Gefährdet",
+      "taxonomy": {
+        "family": "Fasanenartige",
+        "latin_family": "Phasianidae"
+      },
+      "characteristics": {
+        "weight": {
+          "text": "420 – 850 g",
+          "min_kg": 0.42,
+          "max_kg": 0.85
+        }
+      },
+      "habitat": [
+        "offene Bergregionen"
+      ],
+      "diet": null,
+      "lifespan": {
+        "wild": null,
+        "captivity": null
+      },
+      "funFacts": [
+        "Vor Gefahren fliehen sie lieber laufend als fliegend, um in unzugänglichen Felsspalten Unterschlupf zu finden - trotz ihrer guten Flugfähigkeiten"
+      ],
+      "sections": [
+        {
+          "title": "Zu Fuß in den Bergen",
+          "text": "Alpensteinhühner sind durch ihr graues Gefieder in ihrem typischen Lebensraum – felsigen Steilhängen – hervorragend getarnt. Sie sind geschickte Kletterer und gute Flieger. Trotzdem fliehen sie vor Gefahren lieber laufend, um in unzugänglichen Felsspalten Unterschlupf zu finden. Sie gelten als kluge und besonders in der Brutzeit als verteidigungsbereite Hühner."
+        },
+        {
+          "title": "Das Problem: Bergsport",
+          "text": "Alpensteinhühner leiden unter anderem unter einer Zunahme des Tourismus in der Alpenregion. Wanderer und Wintersportler, die sich von den Wegen entfernen, stören die Vögel bei der Brut. Durch Trittschäden werden Rückzugsmöglichkeiten und Brutplätze, wie zum Beispiel Alpenrosenbüsche, zerstört. Im bayerischen Alpenraum ist das Alpensteinhuhn einer der seltensten Brutvögel. Ihre heimliche Lebensweise und die schwere Zugänglichkeit der Brutgebiete machen eine Bestandsaufnahme schwer."
+        },
+        {
+          "title": "Verbreitung",
+          "text": null
+        }
+      ]
+    },
+    "en": {
+      "id": "alpensteinhuhn",
+      "name": "Rock Partridge",
+      "shortDescription": "Rock Partridges are excellently camouflaged in rocky steep slopes and are skilled climbers. In the Bavarian Alps, they are one of the rarest breeding birds.",
+      "scientific_name": "Alectoris graeca saxatilis",
+      "continent": "World of Birds",
+      "conservationStatus": "Endangered",
+      "taxonomy": {
+        "family": "Pheasants",
+        "latin_family": "Phasianidae"
+      },
+      "characteristics": {
+        "weight": {
+          "text": "420 – 850 g",
+          "min_kg": 0.42,
+          "max_kg": 0.85
+        }
+      },
+      "habitat": [
+        "Open mountain regions"
+      ],
+      "diet": null,
+      "lifespan": {
+        "wild": null,
+        "captivity": null
+      },
+      "funFacts": [
+        "Despite their good flying skills, they prefer to flee from danger by running to find shelter in inaccessible rock crevices"
+      ],
+      "sections": [
+        {
+          "title": "On Foot in the Mountains",
+          "text": "Rock Partridges are excellently camouflaged in their typical habitat – rocky steep slopes – thanks to their grey plumage. They are skilled climbers and good fliers. Nevertheless, they prefer to flee from danger by running to find shelter in inaccessible rock crevices. They are considered clever birds that are ready to defend themselves, especially during the breeding season."
+        },
+        {
+          "title": "The Problem: Mountain Sports",
+          "text": "Rock Partridges suffer, among other things, from an increase in tourism in the Alpine region. Hikers and winter sports enthusiasts who stray from the paths disturb the birds during breeding. Trampling destroys retreats and breeding grounds, such as alpine rose bushes. In the Bavarian Alps, the Rock Partridge is one of the rarest breeding birds. Their secretive way of life and the difficult accessibility of breeding areas make population surveys difficult."
+        },
+        {
+          "title": "Distribution",
+          "text": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "asiatischer-elefant",
+    "de": {
+      "id": "asiatischer-elefant",
+      "name": "Asiatischer Elefant",
+      "shortDescription": "Mit bis zu drei Metern die zweitgrößten Landtiere der Erde. Ihr Rüssel besitzt rund 40.000 Muskeln und wird vielseitig als Greifwerkzeug, Schnorchel und zur Kommunikation eingesetzt.",
+      "scientific_name": "Elephas maximus",
+      "continent": "Asien",
+      "conservationStatus": "Stark gefährdet",
+      "taxonomy": {
+        "family": "Elefanten",
+        "latin_family": "Elephantidae"
+      },
+      "characteristics": {
+        "weight": {
+          "text": "♀ bis zu 3 t, ♂ bis zu 6 t",
+          "min_kg": 3000,
+          "max_kg": 6000
+        }
+      },
+      "habitat": [
+        "vorwiegend tropische Wälder"
+      ],
+      "diet": "Gras, Äste und Heu (eine Badewanne voll pro Tag), 100-200 Liter Wasser täglich",
+      "lifespan": {
+        "wild": null,
+        "captivity": null
+      },
+      "funFacts": [
+        "Der Rüssel besitzt rund 40.000 Muskeln und wird als Schnorchel beim Schwimmen verwendet - außerdem hat er nur einen Greiffinger an der Rüsselspitze (Afrikanische Elefanten haben zwei)"
+      ],
+      "sections": [
+        {
+          "title": "Ein Rüssel für viele Einsätze",
+          "text": "Ihr Rüssel wird vielseitig eingesetzt, er ist dank seiner rund 40.000 Muskeln äußerst beweglich. Sie nutzen ihn als Greifwerkzeug beim Fressen und verwenden ihn als Schnorchel beim Schwimmen sowie als Brausekopf, um Wasser auf dem Körper zu verteilen. Wenn Elefanten „rüsseln\", unterhalten sie sich miteinander oder zeigen dadurch, dass sie sich gern haben."
+        },
+        {
+          "title": "Asiatischer oder Afrikanischer Elefant?",
+          "text": "Asiatische Elefanten sind mit bis zu drei Metern die zweitgrößten Landtiere der Erde. Nur die afrikanischen Artgenossen sind mit bis zu vier Metern noch größer. Asiatische Elefanten haben viel kleinere Ohren als Afrikanische, und nur die Männchen besitzen große Stoßzähne. An seiner Rüsselspitze befindet sich ein Greiffinger, beim Afrikanischen Elefanten sind es zwei. Ein erwachsener Asiatischer Elefant frisst pro Tag eine Badewanne voll Gras, Äste und Heu. Je nach Temperatur trinken sie zwischen 100 und 200 Liter am Tag."
+        },
+        {
+          "title": "Verbreitung",
+          "text": null
+        }
+      ]
+    },
+    "en": {
+      "id": "asiatischer-elefant",
+      "name": "Asian Elephant",
+      "shortDescription": "At up to three meters tall, they are the second largest land animals on Earth. Their trunk has around 40,000 muscles and is used versatilely as a gripping tool, snorkel, and for communication.",
+      "scientific_name": "Elephas maximus",
+      "continent": "Asia",
+      "conservationStatus": "Endangered",
+      "taxonomy": {
+        "family": "Elephants",
+        "latin_family": "Elephantidae"
+      },
+      "characteristics": {
+        "weight": {
+          "text": "♀ up to 3 t, ♂ up to 6 t",
+          "min_kg": 3000,
+          "max_kg": 6000
+        }
+      },
+      "habitat": [
+        "Predominantly tropical forests"
+      ],
+      "diet": "Grass, branches, and hay (a bathtub full per day), 100-200 liters of water daily",
+      "lifespan": {
+        "wild": null,
+        "captivity": null
+      },
+      "funFacts": [
+        "The trunk has around 40,000 muscles and is used as a snorkel when swimming - it also has only one finger-like projection at the tip (African elephants have two)"
+      ],
+      "sections": [
+        {
+          "title": "A Trunk for Many Uses",
+          "text": "Their trunk is used in many ways; thanks to its approximately 40,000 muscles, it is extremely flexible. They use it as a gripping tool when eating, as a snorkel when swimming, and as a shower head to distribute water over their bodies. When elephants touch trunks, they communicate with each other or show affection."
+        },
+        {
+          "title": "Asian or African Elephant?",
+          "text": "Asian elephants are the second largest land animals on earth, reaching up to three meters in height. Only their African counterparts are larger, reaching up to four meters. Asian elephants have much smaller ears than African ones, and only the males have large tusks. There is one finger-like projection at the tip of the trunk, whereas the African elephant has two. An adult Asian elephant eats a bathtub full of grass, branches, and hay per day. Depending on the temperature, they drink between 100 and 200 liters a day."
+        },
+        {
+          "title": "Distribution",
+          "text": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "aldabra-riesenschildkroete",
+    "de": {
+      "id": "aldabra-riesenschildkroete",
+      "name": "Aldabra-Riesenschildkröte",
+      "shortDescription": "Mit bis zu 1,2 m Panzerlänge werden sie nicht nur sehr groß, sondern auch sehr alt. 100 Jahre alte Tiere sind keine Seltenheit, manche können über 250 Jahre alt werden.",
+      "scientific_name": "Geochelone gigantea",
+      "continent": "Welt der Reptilien",
+      "conservationStatus": "Gefährdet",
+      "taxonomy": {
+        "family": "Landschildkröten",
+        "latin_family": "Testudinidae"
+      },
+      "characteristics": {
+        "weight": {
+          "text": "♀ bis zu 160 kg, ♂ bis zu 250 kg",
+          "min_kg": 160,
+          "max_kg": 250
+        }
+      },
+      "habitat": [
+        "Küstengebiete sowie offene Gras- und Buschlandschaften"
+      ],
+      "diet": null,
+      "lifespan": {
+        "wild": "über 100 Jahre, vermutlich bis über 250 Jahre möglich",
+        "captivity": null
+      },
+      "funFacts": [
+        "Sie können Flüssigkeit nicht nur durch den Mund, sondern auch durch die Nase aufnehmen"
+      ],
+      "sections": [
+        {
+          "title": "Alter Panzer",
+          "text": "Aldabra-Riesenschildkröten werden mit einer stolzen Panzerlänge von bis zu 1,2 m nicht nur sehr groß, sondern auch sehr alt. 100 Jahre alte Tiere sind keine Seltenheit. Es wird sogar vermutet, dass sie ein Alter von über 250 Jahren erreichen können. Der Panzer wächst dabei das ganze Leben lang und gibt zudem Aufschluss über das Geschlecht. Die Panzer der Männchen sind größer und länglicher, die der Weibchen eher klein und kugelig."
+        },
+        {
+          "title": "Größe entscheidet",
+          "text": "Die Geschlechtsreife ist nicht abhängig vom Alter, sondern von Größe und Gewicht der Tiere. Mit gut einem halben Meter der ausgewachsenen Größe, sind sie zur Paarung bereit. Die Weibchen vergraben ihre 4 bis 14 Eier in flachen Erdkuhlen, wo sie von der Erdwärme ausgebrütet werden. Nach etwa 3 bis 6,5 Monaten schlüpft der nur tennisballgroße Nachwuchs aus dem rundlichen Ei. Aldabra-Riesenschildkröten können Flüssigkeit nicht nur durch den Mund, sondern auch durch die Nase aufnehmen."
+        },
+        {
+          "title": "Verbreitung",
+          "text": null
+        }
+      ]
+    },
+    "en": {
+      "id": "aldabra-riesenschildkroete",
+      "name": "Aldabra Giant Tortoise",
+      "shortDescription": "With a shell length of up to 1.2 m, they not only grow very large but also very old. Animals 100 years old are not uncommon; some can live to be over 250 years old.",
+      "scientific_name": "Geochelone gigantea",
+      "continent": "World of Reptiles",
+      "conservationStatus": "Vulnerable",
+      "taxonomy": {
+        "family": "Tortoises",
+        "latin_family": "Testudinidae"
+      },
+      "characteristics": {
+        "weight": {
+          "text": "♀ up to 160 kg, ♂ up to 250 kg",
+          "min_kg": 160,
+          "max_kg": 250
+        }
+      },
+      "habitat": [
+        "Coastal areas as well as open grass and bush landscapes"
+      ],
+      "diet": null,
+      "lifespan": {
+        "wild": "over 100 years, presumably up to over 250 years possible",
+        "captivity": null
+      },
+      "funFacts": [
+        "They can intake liquid not only through their mouths but also through their noses"
+      ],
+      "sections": [
+        {
+          "title": "Old Shell",
+          "text": "Aldabra Giant Tortoises not only grow very large with an impressive shell length of up to 1.2 m, but also very old. Animals 100 years old are not uncommon. It is even suspected that they can reach an age of over 250 years. The shell grows throughout their entire life and also provides information about their gender. The shells of males are larger and more elongated, while those of females are rather small and spherical."
+        },
+        {
+          "title": "Size Matters",
+          "text": "Sexual maturity does not depend on age, but on the size and weight of the animals. At about half a meter of their adult size, they are ready to mate. The females bury their 4 to 14 eggs in shallow hollows in the ground, where they are hatched by the earth's heat. After about 3 to 6.5 months, the offspring, only the size of a tennis ball, hatch from the round eggs. Aldabra Giant Tortoises can take in liquid not only through their mouths but also through their noses."
+        },
+        {
+          "title": "Distribution",
+          "text": null
+        }
+      ]
+    }
+  }
+]
