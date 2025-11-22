@@ -18,31 +18,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.hackatum.zoolens.ui.theme.ZoolensTheme
-
-private enum class MainTab(val label: String) {
-    Home("Home"),
-    Search("Search"),
-    AI("AI"),
-    Map("Map"),
-    Settings("Settings")
-}
+import org.hackatum.zoolens.ui.navigation.Route
+import org.hackatum.zoolens.ui.screens.AIScreen
+import org.hackatum.zoolens.ui.screens.HomeScreen
+import org.hackatum.zoolens.ui.screens.MapScreen
+import org.hackatum.zoolens.ui.screens.SearchScreen
+import org.hackatum.zoolens.ui.screens.SettingsScreen
 
 @Composable
 @Preview
 fun App() {
     ZoolensTheme {
         var selectedIndex by remember { mutableIntStateOf(0) }
-        val tabs = remember { MainTab.entries }
+        val routes = remember { Route.entries }
 
         Scaffold(
             bottomBar = {
                 NavigationBar {
-                    tabs.forEachIndexed { index, tab ->
+                    routes.forEachIndexed { index, route ->
                         NavigationBarItem(
                             selected = selectedIndex == index,
                             onClick = { selectedIndex = index },
-                            icon = { Text(tab.label.take(1)) },
-                            label = { Text(tab.label) }
+                            icon = { Text(route.label.take(1)) },
+                            label = { Text(route.label) }
                         )
                     }
                 }
@@ -55,7 +53,13 @@ fun App() {
                     .safeContentPadding(),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = tabs[selectedIndex].label, style = MaterialTheme.typography.headlineMedium)
+                when (routes[selectedIndex]) {
+                    Route.Home -> HomeScreen()
+                    Route.Search -> SearchScreen()
+                    Route.AI -> AIScreen()
+                    Route.Map -> MapScreen()
+                    Route.Settings -> SettingsScreen()
+                }
             }
         }
     }
