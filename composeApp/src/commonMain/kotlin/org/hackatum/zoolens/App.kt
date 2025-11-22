@@ -32,6 +32,7 @@ import org.hackatum.zoolens.ui.screens.HomeScreen
 import org.hackatum.zoolens.ui.screens.MapScreen
 import org.hackatum.zoolens.ui.screens.SearchScreen
 import org.hackatum.zoolens.ui.screens.SettingsScreen
+import org.hackatum.zoolens.ui.screens.NewsDetailScreen
 import org.hackatum.zoolens.ui.theme.ZoolensTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -96,13 +97,18 @@ fun App(
                     navController = navController,
                     startDestination = Route.Home.name
                 ) {
-                    composable(Route.Home.name) { HomeScreen() }
+                    composable(Route.Home.name) { HomeScreen(navController) }
                     composable(Route.Search.name) {
                         SearchNavHost()
                     }
                     composable(Route.AI.name) { AIScreen() }
                     composable(Route.Map.name) { MapScreen() }
                     composable(Route.Settings.name) { SettingsScreen(language) { lang -> language = lang } }
+                    composable("News/{id}") { backStackEntry ->
+                        val route = backStackEntry.destination.route ?: ""
+                        val id = route.substringAfter("News/").toIntOrNull() ?: -1
+                        NewsDetailScreen(newsId = id)
+                    }
                 }
 
                 LaunchedEffect(navController) {

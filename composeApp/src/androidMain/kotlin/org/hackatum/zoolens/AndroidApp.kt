@@ -30,6 +30,7 @@ import org.hackatum.zoolens.ui.screens.AIScreen
 import org.hackatum.zoolens.ui.screens.AnimalScreen
 import org.hackatum.zoolens.ui.screens.HomeScreen
 import org.hackatum.zoolens.ui.screens.MapScreen
+import org.hackatum.zoolens.ui.screens.NewsDetailScreen
 import org.hackatum.zoolens.ui.screens.SearchScreen
 import org.hackatum.zoolens.ui.screens.SettingsScreen
 import org.hackatum.zoolens.ui.theme.ZoolensTheme
@@ -46,7 +47,7 @@ fun AndroidApp() {
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination: NavDestination? = backStackEntry?.destination
 
-        // Keep Search tab highlighted when on the non-tab Animal route
+
         val selectedIndex = run {
             val dest = currentDestination?.route
             when {
@@ -99,7 +100,7 @@ fun AndroidApp() {
                         navController = navController,
                         startDestination = Route.Home.name
                     ) {
-                        composable(Route.Home.name) { HomeScreen() }
+                        composable(Route.Home.name) { HomeScreen(navController) }
                         composable(Route.Search.name) {
                             SearchScreen(onOpenAnimal = { navController.navigate("Animal") })
                         }
@@ -111,8 +112,13 @@ fun AndroidApp() {
                                 onLanguageChange = { lang -> language = lang }
                             )
                         }
-                        // Non-tab destination: Animal detail (no id for now)
+
                         composable("Animal") { AnimalScreen() }
+                        composable("News/{id}") { backStackEntry ->
+                            val route = backStackEntry.destination.route ?: ""
+                            val id = route.substringAfter("News/").toIntOrNull() ?: -1
+                            NewsDetailScreen(newsId = id)
+                        }
                     }
                 }
             }
