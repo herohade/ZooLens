@@ -38,24 +38,25 @@ import androidx.compose.material3.Button
 
 @Composable
 fun AndroidApp() {
-    ZoolensTheme {
-        var language by remember { mutableStateOf("en") }
+    var language by remember { mutableStateOf("en") }
+    var useDarkTheme by remember { mutableStateOf(false) }
 
-        val routes = remember { Route.entries }
-        val navController = rememberNavController()
-        val backStackEntry by navController.currentBackStackEntryAsState()
-        val currentDestination: NavDestination? = backStackEntry?.destination
+    val routes = remember { Route.entries }
+    val navController = rememberNavController()
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination: NavDestination? = backStackEntry?.destination
 
 
-        val selectedIndex = run {
-            val dest = currentDestination?.route
-            when {
-                dest == "Animal" -> routes.indexOf(Route.Search)
-                else -> routes.indexOfFirst { it.name == dest }.takeIf { it >= 0 } ?: 0
-            }
+    val selectedIndex = run {
+        val dest = currentDestination?.route
+        when {
+            dest == "Animal" -> routes.indexOf(Route.Search)
+            else -> routes.indexOfFirst { it.name == dest }.takeIf { it >= 0 } ?: 0
         }
+    }
 
-        CompositionLocalProvider(LocalStrings provides stringsFor(language)) {
+    CompositionLocalProvider(LocalStrings provides stringsFor(language)) {
+        ZoolensTheme(useDarkTheme = useDarkTheme) {
             Scaffold(
                 bottomBar = {
                     NavigationBar {
@@ -108,7 +109,9 @@ fun AndroidApp() {
                         composable(Route.Settings.name) {
                             SettingsScreen(
                                 language = language,
-                                onLanguageChange = { lang -> language = lang }
+                                onLanguageChange = { lang -> language = lang },
+                                useDarkTheme = useDarkTheme,
+                                onThemeChange = { useDarkTheme = it }
                             )
                         }
 

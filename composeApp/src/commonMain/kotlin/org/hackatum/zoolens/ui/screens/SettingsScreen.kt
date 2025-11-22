@@ -13,7 +13,12 @@ import androidx.compose.ui.unit.dp
 import org.hackatum.zoolens.i18n.LocalStrings
 
 @Composable
-fun SettingsScreen(language: String, onLanguageChange: (String) -> Unit) {
+fun SettingsScreen(
+    language: String,
+    onLanguageChange: (String) -> Unit,
+    useDarkTheme: Boolean,
+    onThemeChange: (Boolean) -> Unit
+) {
     Column(
         Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -23,6 +28,9 @@ fun SettingsScreen(language: String, onLanguageChange: (String) -> Unit) {
 
         Button(onClick = { onLanguageChange(if (language == "en") "de" else "en") }) {
             Text(LocalStrings.current.toggleLanguage)
+        }
+        Button(onClick = { onThemeChange(!useDarkTheme) }) {
+            Text(if (useDarkTheme) "Switch to Light Mode" else "Switch to Dark Mode")
         }
     }
 }
