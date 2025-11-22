@@ -1,9 +1,10 @@
 package org.hackatum.zoolens.ui.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,6 +19,10 @@ fun SettingsScreen(
     useDarkTheme: Boolean,
     onThemeChange: (Boolean) -> Unit
 ) {
+    val isGerman = language.startsWith("de")
+    val isEnglish = language.startsWith("en")
+    val isLight = !useDarkTheme
+    val isDark = useDarkTheme
     Column(
         Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -29,14 +34,38 @@ fun SettingsScreen(
         Spacer(Modifier.height(8.dp))
         Row(Modifier.fillMaxWidth().padding(horizontal = 24.dp), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(LocalStrings.current.settingsLanguage, style = MaterialTheme.typography.bodyLarge)
-            Button(onClick = { onLanguageChange(if (language == "en") "de" else "en") }) {
-                Text(LocalStrings.current.toggleLanguage)
+            Row {
+                RadioButton(
+                    selected = isGerman,
+                    onClick = { onLanguageChange("de") },
+                    colors = RadioButtonDefaults.colors()
+                )
+                Text(LocalStrings.current.settingsLanguageGerman, modifier = Modifier.align(Alignment.CenterVertically))
+                Spacer(Modifier.width(8.dp))
+                RadioButton(
+                    selected = isEnglish,
+                    onClick = { onLanguageChange("en") },
+                    colors = RadioButtonDefaults.colors()
+                )
+                Text(LocalStrings.current.settingsLanguageEnglish, modifier = Modifier.align(Alignment.CenterVertically))
             }
         }
         Row(Modifier.fillMaxWidth().padding(horizontal = 24.dp), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(LocalStrings.current.settingsTheme, style = MaterialTheme.typography.bodyLarge)
-            Button(onClick = { onThemeChange(!useDarkTheme) }) {
-                Text(if (useDarkTheme) LocalStrings.current.settingsThemeLight else LocalStrings.current.settingsThemeDark)
+            Row {
+                RadioButton(
+                    selected = isLight,
+                    onClick = { onThemeChange(false) },
+                    colors = RadioButtonDefaults.colors()
+                )
+                Text(LocalStrings.current.settingsThemeLightLabel, modifier = Modifier.align(Alignment.CenterVertically))
+                Spacer(Modifier.width(8.dp))
+                RadioButton(
+                    selected = isDark,
+                    onClick = { onThemeChange(true) },
+                    colors = RadioButtonDefaults.colors()
+                )
+                Text(LocalStrings.current.settingsThemeDarkLabel, modifier = Modifier.align(Alignment.CenterVertically))
             }
         }
         HorizontalDivider(Modifier.padding(vertical = 8.dp))
