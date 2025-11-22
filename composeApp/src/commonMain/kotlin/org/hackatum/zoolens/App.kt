@@ -27,6 +27,7 @@ import org.hackatum.zoolens.i18n.LocalStrings
 import org.hackatum.zoolens.i18n.stringsFor
 import org.hackatum.zoolens.ui.navigation.Route
 import org.hackatum.zoolens.ui.screens.AIScreen
+import org.hackatum.zoolens.ui.screens.AnimalScreen
 import org.hackatum.zoolens.ui.screens.HomeScreen
 import org.hackatum.zoolens.ui.screens.MapScreen
 import org.hackatum.zoolens.ui.screens.SearchScreen
@@ -42,28 +43,28 @@ fun App(
     ZoolensTheme {
         var language by remember { mutableStateOf("en") }
 
-        var selectedIndex by remember { mutableStateOf(0) }
         val routes = remember { Route.entries }
         val navController = rememberNavController()
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+        val selectedIndex = routes.indexOfFirst { it.name == currentRoute }.let { if (it == -1) 0 else it }
 
         CompositionLocalProvider(LocalStrings provides stringsFor(language)) {
             Scaffold(
             bottomBar = {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentRoute = navBackStackEntry?.destination?.route
-
                 NavigationBar {
                     routes.forEachIndexed { index, route ->
                         NavigationBarItem(
                             selected = selectedIndex == index,
-//                            onClick = { selectedIndex = index },
                             onClick = {
-                                navController.navigate(selectedIndex) {
-                                    popUpTo(navController.graph.startDestinationId) {
-                                        saveState = true
+                                if (selectedIndex != index) {
+                                    navController.navigate(route.name) {
+                                        popUpTo(navController.graph.startDestinationId) {
+                                            saveState = true
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
                                     }
-                                    launchSingleTop = true
-                                    restoreState = true
                                 }
                             },
                             icon = {
@@ -96,7 +97,9 @@ fun App(
                     startDestination = Route.Home.name
                 ) {
                     composable(Route.Home.name) { HomeScreen() }
-                    composable(Route.Search.name) { SearchScreen() }
+                    composable(Route.Search.name) {
+                        SearchNavHost()
+                    }
                     composable(Route.AI.name) { AIScreen() }
                     composable(Route.Map.name) { MapScreen() }
                     composable(Route.Settings.name) { SettingsScreen(language) { lang -> language = lang } }
@@ -106,6 +109,22 @@ fun App(
                     onNavHostReady(navController)
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun SearchNavHost() {
+    val searchNavController = rememberNavController()
+    NavHost(
+        navController = searchNavController,
+        startDestination = "SearchMain"
+    ) {
+        composable("SearchMain") {
+            SearchScreen(onOpenAnimal = { searchNavController.navigate("Animal") })
+        }
+        composable("Animal") {
+            AnimalScreen()
         }
     }
 }
