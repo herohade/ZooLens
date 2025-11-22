@@ -19,7 +19,15 @@ data class AppStrings(
     val newsCard3: String,
     val ticketsHeadline: String,
     val newsCards: List<NewsCardData>,
-    val ticketCards: List<TicketCardData>
+    val ticketCards: List<TicketCardData>,
+    val settingsGeneral: String,
+    val settingsLanguage: String,
+    val settingsTheme: String,
+    val settingsThemeLight: String,
+    val settingsThemeDark: String,
+    val settingsAbout: String,
+    val settingsAboutVersion: String,
+    val settingsAboutCopyright: String
 )
 
 val newsCardsEn = listOf(
@@ -85,7 +93,15 @@ val EnStrings = AppStrings(
     newsCard3 = "More English news here.",
     ticketsHeadline = "Tickets",
     newsCards = newsCardsEn,
-    ticketCards = ticketCardsEn
+    ticketCards = ticketCardsEn,
+    settingsGeneral = "General",
+    settingsLanguage = "Language",
+    settingsTheme = "Theme",
+    settingsThemeLight = "Switch to Light Mode",
+    settingsThemeDark = "Switch to Dark Mode",
+    settingsAbout = "About",
+    settingsAboutVersion = "ZooLens App v1.0",
+    settingsAboutCopyright = "© 2025 Tierpark Hellabrunn"
 )
 
 val DeStrings = AppStrings(
@@ -101,7 +117,15 @@ val DeStrings = AppStrings(
     newsCard3 = "Weitere deutsche Nachrichten hier.",
     ticketsHeadline = "Tickets",
     newsCards = newsCardsDe,
-    ticketCards = ticketCardsDe
+    ticketCards = ticketCardsDe,
+    settingsGeneral = "Allgemein",
+    settingsLanguage = "Sprache",
+    settingsTheme = "Design",
+    settingsThemeLight = "Wechsel zu hellem Modus",
+    settingsThemeDark = "Wechsel zu dunklem Modus",
+    settingsAbout = "Über",
+    settingsAboutVersion = "ZooLens App v1.0",
+    settingsAboutCopyright = "© 2025 Tierpark Hellabrunn"
 )
 
 val LocalStrings = staticCompositionLocalOf { EnStrings }

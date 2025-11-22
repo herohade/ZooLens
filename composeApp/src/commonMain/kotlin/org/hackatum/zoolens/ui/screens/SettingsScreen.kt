@@ -1,9 +1,8 @@
 package org.hackatum.zoolens.ui.screens
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,12 +24,25 @@ fun SettingsScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
     ) {
         Text(LocalStrings.current.settings, style = MaterialTheme.typography.headlineMedium)
-
-        Button(onClick = { onLanguageChange(if (language == "en") "de" else "en") }) {
-            Text(LocalStrings.current.toggleLanguage)
+        HorizontalDivider(Modifier.padding(vertical = 8.dp))
+        Text(LocalStrings.current.settingsGeneral, style = MaterialTheme.typography.titleMedium, modifier = Modifier.align(Alignment.Start).padding(start = 24.dp))
+        Spacer(Modifier.height(8.dp))
+        Row(Modifier.fillMaxWidth().padding(horizontal = 24.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text(LocalStrings.current.settingsLanguage, style = MaterialTheme.typography.bodyLarge)
+            Button(onClick = { onLanguageChange(if (language == "en") "de" else "en") }) {
+                Text(LocalStrings.current.toggleLanguage)
+            }
         }
-        Button(onClick = { onThemeChange(!useDarkTheme) }) {
-            Text(if (useDarkTheme) "Switch to Light Mode" else "Switch to Dark Mode")
+        Row(Modifier.fillMaxWidth().padding(horizontal = 24.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text(LocalStrings.current.settingsTheme, style = MaterialTheme.typography.bodyLarge)
+            Button(onClick = { onThemeChange(!useDarkTheme) }) {
+                Text(if (useDarkTheme) LocalStrings.current.settingsThemeLight else LocalStrings.current.settingsThemeDark)
+            }
         }
+        HorizontalDivider(Modifier.padding(vertical = 8.dp))
+        Text(LocalStrings.current.settingsAbout, style = MaterialTheme.typography.titleMedium, modifier = Modifier.align(Alignment.Start).padding(start = 24.dp))
+        Spacer(Modifier.height(8.dp))
+        Text(LocalStrings.current.settingsAboutVersion, style = MaterialTheme.typography.bodySmall, modifier = Modifier.align(Alignment.Start).padding(start = 24.dp))
+        Text(LocalStrings.current.settingsAboutCopyright, style = MaterialTheme.typography.bodySmall, modifier = Modifier.align(Alignment.Start).padding(start = 24.dp))
     }
 }
