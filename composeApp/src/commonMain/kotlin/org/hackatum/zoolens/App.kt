@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.hackatum.zoolens.ui.theme.ZoolensTheme
 
 private enum class MainTab(val label: String) {
     Home("Home"),
@@ -29,7 +30,7 @@ private enum class MainTab(val label: String) {
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    ZoolensTheme {
         var selectedIndex by remember { mutableIntStateOf(0) }
         val tabs = remember { MainTab.entries }
 
