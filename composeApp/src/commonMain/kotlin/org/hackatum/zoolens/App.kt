@@ -16,8 +16,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -40,16 +38,17 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App(
     onNavHostReady: suspend (NavHostController) -> Unit = {}
 ) {
-    ZoolensTheme {
-        var language by remember { mutableStateOf("en") }
+    var language by remember { mutableStateOf("en") }
+    var useDarkTheme by remember { mutableStateOf(false) }
 
-        val routes = remember { Route.entries }
-        val navController = rememberNavController()
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
-        val selectedIndex = routes.indexOfFirst { it.name == currentRoute }.let { if (it == -1) 0 else it }
+    val routes = remember { Route.entries }
+    val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+    val selectedIndex = routes.indexOfFirst { it.name == currentRoute }.let { if (it == -1) 0 else it }
 
-        CompositionLocalProvider(LocalStrings provides stringsFor(language)) {
+    CompositionLocalProvider(LocalStrings provides stringsFor(language)) {
+        ZoolensTheme(useDarkTheme = useDarkTheme) {
             Scaffold(
             bottomBar = {
                 NavigationBar {
@@ -96,13 +95,13 @@ fun App(
                     navController = navController,
                     startDestination = Route.Home.name
                 ) {
-                    composable(Route.Home.name) { HomeScreen() }
+                    composable(Route.Home.name) { HomeScreen(navController) }
                     composable(Route.Search.name) {
                         SearchNavHost()
                     }
                     composable(Route.AI.name) { AIScreen() }
                     composable(Route.Map.name) { MapScreen() }
-                    composable(Route.Settings.name) { SettingsScreen(language) { lang -> language = lang } }
+                    composable(Route.Settings.name) { SettingsScreen(language, { lang -> language = lang }, useDarkTheme, { useDarkTheme = it }) }
                 }
 
                 LaunchedEffect(navController) {
