@@ -108,7 +108,7 @@ fun AnimalScreen(id: String) {
                 funFacts = listOf("Elephants have excellent memory")
             )
         )
-    )[id.toIntOrNull() ?: 0]
+    )[(id.toIntOrNull() ?: 1) - 1]
     val content = contentWrapper.en
 
     Column(modifier = Modifier.fillMaxSize()) {

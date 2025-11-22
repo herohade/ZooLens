@@ -118,7 +118,8 @@ fun AndroidApp() {
                         // Non-tab destination: Animal detail
                         composable("Animal") { backStackEntry ->
 //                            val id = backStackEntry.arguments?.getString("id") ?: ""
-                            val id = backStackEntry.savedStateHandle.get<String>("animalId") ?: ""
+//                            val id = backStackEntry.savedStateHandle.get<String>("animalId") ?: ""
+                            val id = navController.previousBackStackEntry?.savedStateHandle?.get<String>("animalId") ?: ""
                             AnimalScreen(id = id)
                         }
                     }

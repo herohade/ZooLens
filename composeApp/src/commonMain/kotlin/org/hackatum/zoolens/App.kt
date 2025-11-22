@@ -126,7 +126,8 @@ fun SearchNavHost() {
             })
         }
         composable("Animal") { backStackEntry ->
-            val id = backStackEntry.savedStateHandle.get<String>("animalId") ?: ""
+//            val id = backStackEntry.savedStateHandle.get<String>("animalId") ?: ""
+            val id = searchNavController.previousBackStackEntry?.savedStateHandle?.get<String>("animalId") ?: ""
             AnimalScreen(id = id)
         }
     }
