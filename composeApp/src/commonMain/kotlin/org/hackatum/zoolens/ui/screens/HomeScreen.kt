@@ -12,6 +12,6 @@ import org.hackatum.zoolens.i18n.LocalStrings
 @Composable
 fun HomeScreen() {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(LocalStrings.current.home, style = MaterialTheme.typography.headlineMedium)
+
     }
 }
