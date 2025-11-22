@@ -1,0 +1,7 @@
+<resources>
+    <string name="home">Startseite</string>
+    <string name="map">Karte</string>
+    <string name="ai">KI</string>
+    <string name="search">Suche</string>
+    <string name="settings">Einstellungen</string>
+</resources>

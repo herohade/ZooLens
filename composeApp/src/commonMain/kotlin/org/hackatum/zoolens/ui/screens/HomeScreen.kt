@@ -7,10 +7,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.hackatum.zoolens.i18n.LocalStrings
 
 @Composable
 fun HomeScreen() {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Home", style = MaterialTheme.typography.headlineMedium)
+        Text(LocalStrings.current.home, style = MaterialTheme.typography.headlineMedium)
     }
 }

@@ -7,10 +7,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.hackatum.zoolens.i18n.LocalStrings
 
 @Composable
 fun AIScreen() {
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("AI", style = MaterialTheme.typography.headlineMedium)
+        Text(LocalStrings.current.ai, style = MaterialTheme.typography.headlineMedium)
     }
 }

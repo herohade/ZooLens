@@ -1,0 +1,7 @@
+<resources>
+    <string name="home">Home</string>
+    <string name="map">Map</string>
+    <string name="ai">AI</string>
+    <string name="search">Search</string>
+    <string name="settings">Settings</string>
+</resources>
