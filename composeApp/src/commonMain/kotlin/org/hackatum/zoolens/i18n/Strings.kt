@@ -31,7 +31,8 @@ data class AppStrings(
     val settingsLanguageGerman: String,
     val settingsLanguageEnglish: String,
     val settingsThemeLightLabel: String,
-    val settingsThemeDarkLabel: String
+    val settingsThemeDarkLabel: String,
+    val newsCardReadMore: String
 )
 
 val newsCardsEn = listOf(
@@ -109,7 +110,8 @@ val EnStrings = AppStrings(
     settingsLanguageGerman = "German",
     settingsLanguageEnglish = "English",
     settingsThemeLightLabel = "Light",
-    settingsThemeDarkLabel = "Dark"
+    settingsThemeDarkLabel = "Dark",
+    newsCardReadMore = "Read more"
 )
 
 val DeStrings = AppStrings(
@@ -137,7 +139,8 @@ val DeStrings = AppStrings(
     settingsLanguageGerman = "Deutsch",
     settingsLanguageEnglish = "Englisch",
     settingsThemeLightLabel = "Hell",
-    settingsThemeDarkLabel = "Dunkel"
+    settingsThemeDarkLabel = "Dunkel",
+    newsCardReadMore = "Lese mehr"
 )
 
 val LocalStrings = staticCompositionLocalOf { EnStrings }

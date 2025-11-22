@@ -82,6 +82,7 @@ fun HomeScreen(navController: NavController) {
     val ticketHeadline = LocalStrings.current.ticketsHeadline
     val ticketCards = LocalStrings.current.ticketCards
     val uriHandler = LocalUriHandler.current
+    val readMoreText = LocalStrings.current.newsCardReadMore
 
     Column(
         Modifier.fillMaxSize(),
@@ -125,7 +126,7 @@ fun HomeScreen(navController: NavController) {
                                 onClick = { uriHandler.openUri(card.link) },
                                 modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp)
                             ) {
-                                Text("Read more")
+                                Text(readMoreText)
                             }
                         }
                     }
