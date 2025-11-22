@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.hackatum.zoolens.i18n.LocalStrings
 import org.hackatum.zoolens.model.AnimalWrapper
+import org.hackatum.zoolens.model.getContent
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -92,7 +93,7 @@ fun AssistantPanel(userInput: androidx.compose.runtime.MutableState<String>) {
 
 @Composable
 @Preview
-fun AnimalScreen(id: String) {
+fun AnimalScreen(id: String, language: String = "en") {
     val userInput = remember { mutableStateOf("") }
     val scrollState = rememberScrollState()
 
@@ -173,7 +174,7 @@ fun AnimalScreen(id: String) {
             )
         )
     )[(id.toIntOrNull() ?: 1) - 1]
-    val content = contentWrapper.en
+    val content = contentWrapper.getContent(language)
 
     Column(modifier = Modifier.fillMaxSize()) {
         AnimalName(content.name)
