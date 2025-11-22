@@ -30,7 +30,6 @@ import org.hackatum.zoolens.ui.screens.AIScreen
 import org.hackatum.zoolens.ui.screens.AnimalScreen
 import org.hackatum.zoolens.ui.screens.HomeScreen
 import org.hackatum.zoolens.ui.screens.MapScreen
-import org.hackatum.zoolens.ui.screens.NewsDetailScreen
 import org.hackatum.zoolens.ui.screens.SearchScreen
 import org.hackatum.zoolens.ui.screens.SettingsScreen
 import org.hackatum.zoolens.ui.theme.ZoolensTheme
@@ -114,11 +113,6 @@ fun AndroidApp() {
                         }
 
                         composable("Animal") { AnimalScreen() }
-                        composable("News/{id}") { backStackEntry ->
-                            val route = backStackEntry.destination.route ?: ""
-                            val id = route.substringAfter("News/").toIntOrNull() ?: -1
-                            NewsDetailScreen(newsId = id)
-                        }
                     }
                 }
             }
