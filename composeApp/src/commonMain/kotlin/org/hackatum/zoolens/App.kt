@@ -97,7 +97,7 @@ fun App(
                 ) {
                     composable(Route.Home.name) { HomeScreen(navController) }
                     composable(Route.Search.name) {
-                        SearchNavHost(language = language)
+                        SearchNavHost()
                     }
                     composable(Route.AI.name) { AIScreen() }
                     composable(Route.Map.name) { MapScreen() }
@@ -113,21 +113,21 @@ fun App(
 }
 
 @Composable
-fun SearchNavHost(language: String) {
+fun SearchNavHost() {
     val searchNavController = rememberNavController()
     NavHost(
         navController = searchNavController,
         startDestination = "SearchMain"
     ) {
         composable("SearchMain") {
-            SearchScreen(language = language, onOpenAnimal = { id ->
+            SearchScreen(onOpenAnimal = { id ->
                 searchNavController.currentBackStackEntry?.savedStateHandle?.set("animalId", id)
                 searchNavController.navigate("Animal")
             })
         }
         composable("Animal") {
             val id = searchNavController.previousBackStackEntry?.savedStateHandle?.get<String>("animalId") ?: ""
-            AnimalScreen(id = id, language = language)
+            AnimalScreen(id = id)
         }
     }
 }
