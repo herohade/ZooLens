@@ -1,10 +1,14 @@
 package org.hackatum.zoolens.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +34,7 @@ import kotlinx.serialization.json.jsonObject
 import org.hackatum.zoolens.ChatRequest
 import org.hackatum.zoolens.i18n.LocalStrings
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import zoolens.composeapp.generated.resources.Res
 import zoolens.composeapp.generated.resources.compose_multiplatform
 
@@ -40,18 +45,54 @@ val apiClient = HttpClient {
 }
 
 @Composable
+@Preview
 fun AIScreen() {
     val userInput = remember { mutableStateOf("") }
     val llmOutput = remember { mutableStateOf("") }
     val isLoading = remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
+    val scrollState = rememberScrollState()
 
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(LocalStrings.current.ai, style = MaterialTheme.typography.headlineMedium)
+    Column(modifier = Modifier.fillMaxSize()) {
+        // Title at the top
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp),
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(LocalStrings.current.askAssistant, style = MaterialTheme.typography.headlineMedium)
+        }
+
+        // LLM output display in the middle (scrollable)
+        if (llmOutput.value.isNotEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .verticalScroll(scrollState)
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = llmOutput.value.trim('"'),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        } else {
+            Box(modifier = Modifier.weight(1f))
+        }
+
+        // Input field at the bottom
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .background(
+                    MaterialTheme.colorScheme.primaryContainer,
+                    androidx.compose.foundation.shape.RoundedCornerShape(8.dp)
+                )
+                .padding(12.dp),
             contentAlignment = Alignment.CenterEnd
         ) {
             BasicTextField(
@@ -59,8 +100,7 @@ fun AIScreen() {
                 onValueChange = { userInput.value = it },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 48.dp)
-                    .padding(8.dp),
+                    .padding(end = 48.dp),
                 singleLine = true,
                 textStyle = MaterialTheme.typography.bodySmall.copy(
                     color = MaterialTheme.colorScheme.onSurface
@@ -70,11 +110,8 @@ fun AIScreen() {
 
             IconButton(
                 onClick = {
-                    // TODO: Send message to LLM
-                    // Define data classes for serialization
                     val message = userInput.value
                     if (message.isNotBlank()) {
-                        // --- TODO Implemented ---
                         coroutineScope.launch {
                             isLoading.value = true
                             try {
@@ -102,25 +139,8 @@ fun AIScreen() {
                 enabled = !isLoading.value
             ) {
                 Icon(
-//                        imageVector = Icons.AutoMirrored.Filled.Send,
                     painter = painterResource(Res.drawable.compose_multiplatform),
                     contentDescription = "Send message"
-                )
-            }
-        }
-
-        // Display LLM output
-        if (llmOutput.value.isNotEmpty()) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .align(Alignment.BottomCenter)
-            ) {
-                Text(
-                    text = llmOutput.value.trim('"'),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }
