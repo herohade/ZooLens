@@ -9,182 +9,283 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import org.hackatum.zoolens.i18n.LocalStrings
-import org.hackatum.zoolens.model.AnimalWrapper
-import org.hackatum.zoolens.model.getContent
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.hackatum.zoolens.model.AnimalsJson
+import org.hackatum.zoolens.model.AnimalJson
+import org.hackatum.zoolens.model.Taxonomy
+import org.hackatum.zoolens.model.Weight
+import org.hackatum.zoolens.model.Lifespan
+import org.hackatum.zoolens.model.Section
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 @Composable
 fun AnimalName(name: String) {
     Text(
         text = name,
-        style = MaterialTheme.typography.headlineMedium,
-        modifier = Modifier.padding(16.dp)
+        style = MaterialTheme.typography.headlineLarge,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 24.dp, bottom = 4.dp),
+        textAlign = TextAlign.Center
     )
 }
 
 @Composable
 fun AnimalScientificName(scientificName: String?) {
-    Text(
-        text = scientificName ?: "",
-        style = MaterialTheme.typography.bodyMedium,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-        color = MaterialTheme.colorScheme.onSurfaceVariant
-    )
+    if (!scientificName.isNullOrBlank()) {
+        Text(
+            text = scientificName,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 12.dp),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center
+        )
+    }
 }
 
 @Composable
-fun AnimalDescription(description: String, scrollState: androidx.compose.foundation.ScrollState, modifier: Modifier = Modifier) {
-    Box(
+fun AnimalDescription(description: String, modifier: Modifier = Modifier) {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         modifier = modifier
             .fillMaxWidth()
-            .verticalScroll(scrollState)
-            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Text(
             text = description,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(16.dp)
         )
     }
 }
 
 @Composable
 fun AssistantPanel(userInput: androidx.compose.runtime.MutableState<String>) {
-    Column(
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surface)
-            .padding(8.dp)
+            .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
-        Text(
-            text = LocalStrings.current.askAssistant,
-            style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
-        )
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp),
-            contentAlignment = Alignment.CenterEnd
+                .background(MaterialTheme.colorScheme.surface)
+                .padding(12.dp)
         ) {
-            BasicTextField(
-                value = userInput.value,
-                onValueChange = { userInput.value = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 48.dp)
-                    .padding(8.dp),
-                singleLine = true,
-                textStyle = MaterialTheme.typography.bodySmall.copy(
-                    color = MaterialTheme.colorScheme.onSurface
-                )
+            Text(
+                text = LocalStrings.current.askAssistant,
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(bottom = 8.dp)
             )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                BasicTextField(
+                    value = userInput.value,
+                    onValueChange = { userInput.value = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(8.dp))
+                        .padding(12.dp),
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                )
+            }
         }
     }
 }
 
 @Composable
-@Preview
-fun AnimalScreen(id: String, language: String = "en") {
+fun AnimalTaxonomy(taxonomy: Taxonomy?, language: String) {
+    if (taxonomy == null) return
+    val family = taxonomy.family?.get(language)
+    val latinFamily = taxonomy.latinFamily
+    val familyLabel = if (language == "de") "Familie" else "Family"
+    val latinFamilyLabel = if (language == "de") "Lateinische Familie" else "Latin Family"
+    if (family != null || latinFamily != null) {
+        Card(
+            shape = RoundedCornerShape(12.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 4.dp)
+        ) {
+            Column(Modifier.padding(12.dp)) {
+                if (family != null) Text("$familyLabel: $family", style = MaterialTheme.typography.bodyMedium)
+                if (latinFamily != null) Text("$latinFamilyLabel: $latinFamily", style = MaterialTheme.typography.bodySmall)
+            }
+        }
+    }
+}
+
+@Composable
+fun AnimalWeight(weight: Weight?, language: String) {
+    if (weight == null) return
+    val text = weight.text
+    val label = if (language == "de") "Gewicht" else "Weight"
+    if (text != null) {
+        Text("$label: $text", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp))
+    }
+}
+
+@Composable
+fun AnimalContinent(continent: String?, language: String) {
+    val label = if (language == "de") "Kontinent" else "Continent"
+    if (continent != null) {
+        Text("$label: $continent", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp))
+    }
+}
+
+@Composable
+fun AnimalConservationStatus(status: String?, language: String) {
+    val label = if (language == "de") "Schutzstatus" else "Conservation Status"
+    if (status != null) {
+        Text("$label: $status", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp))
+    }
+}
+
+@Composable
+fun AnimalDiet(diet: String?, language: String) {
+    val label = if (language == "de") "Ernährung" else "Diet"
+    if (diet != null) {
+        Text("$label: $diet", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp))
+    }
+}
+
+@Composable
+fun AnimalHabitat(habitat: List<String>, language: String) {
+    val label = if (language == "de") "Lebensraum" else "Habitat"
+    if (habitat.isNotEmpty()) {
+        Text("$label: ${habitat.joinToString(", ")}", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp))
+    }
+}
+
+@Composable
+fun AnimalLifespan(lifespan: Lifespan?, language: String) {
+    if (lifespan == null) return
+    val wild = lifespan.wild
+    val captivity = lifespan.captivity
+    val wildLabel = if (language == "de") "Lebenserwartung (wild)" else "Lifespan (wild)"
+    val captivityLabel = if (language == "de") "Lebenserwartung (Gefangenschaft)" else "Lifespan (captivity)"
+    if (wild != null || captivity != null) {
+        Card(
+            shape = RoundedCornerShape(12.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 4.dp)
+        ) {
+            Column(Modifier.padding(12.dp)) {
+                if (wild != null) Text("$wildLabel: $wild", style = MaterialTheme.typography.bodyMedium)
+                if (captivity != null) Text("$captivityLabel: $captivity", style = MaterialTheme.typography.bodyMedium)
+            }
+        }
+    }
+}
+
+@Composable
+fun AnimalFunFacts(funFacts: List<String>, language: String) {
+    val label = if (language == "de") "Wissenswertes:" else "Fun Facts:"
+    if (funFacts.isNotEmpty()) {
+        Card(
+            shape = RoundedCornerShape(12.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 4.dp)
+        ) {
+            Column(Modifier.padding(12.dp)) {
+                Text(label, style = MaterialTheme.typography.titleMedium)
+                funFacts.forEach { fact ->
+                    Text("• $fact", style = MaterialTheme.typography.bodySmall)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun AnimalSections(sections: List<Section>, language: String) {
+    val label = if (language == "de") "Abschnitt" else "Section"
+    if (sections.isNotEmpty()) {
+        Column(Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
+            sections.forEach { section ->
+                Card(
+                    shape = RoundedCornerShape(12.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp)
+                ) {
+                    Column(Modifier.padding(12.dp)) {
+                        Text(section.title, style = MaterialTheme.typography.titleMedium)
+                        Text(section.text, style = MaterialTheme.typography.bodyMedium)
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun AnimalScreen(id: String, language: String = "en", context: Any? = null) {
     val userInput = remember { mutableStateOf("") }
     val scrollState = rememberScrollState()
+    val animalState = remember { mutableStateOf<AnimalJson?>(null) }
+    val coroutineScope = rememberCoroutineScope()
 
-    val contentWrapper = listOf(
-        AnimalWrapper(
-            id = "1",
-            de = org.hackatum.zoolens.model.AnimalContent(
-                id = "1",
-                name = "Löwe",
-                shortDescription = "Große Raubkatze, lebt in Rudeln.",
-                scientific_name = "Panthera leo",
-                continent = "Afrika",
-                conservationStatus = "Vulnerable",
-                diet = "Fleischfresser",
-                habitat = listOf("Savanne"),
-                funFacts = listOf("Löwen leben in Rudeln", "Männliche Löwen haben Mähnen")
-            ),
-            en = org.hackatum.zoolens.model.AnimalContent(
-                id = "1",
-                name = "Lion",
-                shortDescription = "Large big cat living in prides.",
-                scientific_name = "Panthera leo",
-                continent = "Africa",
-                conservationStatus = "Vulnerable",
-                diet = "Carnivore",
-                habitat = listOf("Savannah"),
-                funFacts = listOf("Lions live in prides", "Male lions have manes")
-            )
-        ),
-        AnimalWrapper(
-            id = "2",
-            de = org.hackatum.zoolens.model.AnimalContent(
-                id = "2",
-                name = "Giraffe",
-                shortDescription = "Größtes Landtier mit sehr langem Hals.",
-                scientific_name = "Giraffa camelopardalis",
-                continent = "Afrika",
-                conservationStatus = "Vulnerable",
-                diet = "Pflanzenfresser",
-                habitat = listOf("Savanne"),
-                funFacts = listOf("Giraffen haben lange Hälse")
-            ),
-            en = org.hackatum.zoolens.model.AnimalContent(
-                id = "2",
-                name = "Giraffe",
-                shortDescription = "Tallest land animal with a very long neck.",
-                scientific_name = "Giraffa camelopardalis",
-                continent = "Africa",
-                conservationStatus = "Vulnerable",
-                diet = "Herbivore",
-                habitat = listOf("Savannah"),
-                funFacts = listOf("Giraffes have long necks")
-            )
-        ),
-        AnimalWrapper(
-            id = "3",
-            de = org.hackatum.zoolens.model.AnimalContent(
-                id = "3",
-                name = "Elefant",
-                shortDescription = "Großes, intelligentes Säugetier mit Rüssel.",
-                scientific_name = "Loxodonta africana",
-                continent = "Afrika",
-                conservationStatus = "Vulnerable",
-                diet = "Pflanzenfresser",
-                habitat = listOf("Savanne", "Wälder"),
-                funFacts = listOf("Elefanten haben ein hervorragendes Gedächtnis")
-            ),
-            en = org.hackatum.zoolens.model.AnimalContent(
-                id = "3",
-                name = "Elephant",
-                shortDescription = "Large intelligent mammal with a trunk.",
-                scientific_name = "Loxodonta africana",
-                continent = "Africa",
-                conservationStatus = "Vulnerable",
-                diet = "Herbivore",
-                habitat = listOf("Savannah", "Forests"),
-                funFacts = listOf("Elephants have excellent memory")
-            )
-        )
-    )[(id.toIntOrNull() ?: 1) - 1]
-    val content = contentWrapper.getContent(language)
-
-    Column(modifier = Modifier.fillMaxSize()) {
-        AnimalName(content.name)
-        AnimalScientificName(content.scientific_name)
-        // Image here if I don't forget lolol
-        AnimalDescription(
-            description = content.shortDescription,
-            scrollState = scrollState,
-            modifier = Modifier.weight(1f)
-        )
-        AssistantPanel(userInput)
+    LaunchedEffect(id) {
+        coroutineScope.launch {
+            val jsonString = org.hackatum.zoolens.model.loadAnimalsJsonString(context)
+            val animalsJson = kotlinx.serialization.json.Json.decodeFromString<AnimalsJson>(jsonString)
+            animalState.value = animalsJson.animals[id]
+        }
+    }
+    val animal = animalState.value
+    val translation = animal?.translations?.get(language)
+    if (animal != null && translation != null) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .background(MaterialTheme.colorScheme.background)
+        ) {
+            AnimalName(translation.name)
+            AnimalScientificName(animal.scientificName)
+            AnimalDescription(description = translation.shortDescription)
+            AnimalTaxonomy(animal.taxonomy, language)
+            AnimalWeight(animal.weight, language)
+            AnimalContinent(animal.continent?.get(language), language)
+            AnimalConservationStatus(animal.conservationStatus?.get(language), language)
+            AnimalDiet(animal.diet?.get(language), language)
+            AnimalHabitat(animal.habitat?.get(language) ?: emptyList(), language)
+            AnimalLifespan(animal.lifespan, language)
+            AnimalFunFacts(translation.funFacts, language)
+            AnimalSections(translation.sections, language)
+            AssistantPanel(userInput)
+        }
     }
 }

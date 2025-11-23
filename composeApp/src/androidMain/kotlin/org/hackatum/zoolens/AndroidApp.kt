@@ -35,7 +35,7 @@ import org.hackatum.zoolens.ui.screens.SettingsScreen
 import org.hackatum.zoolens.ui.theme.ZoolensTheme
 
 @Composable
-fun AndroidApp() {
+fun AndroidApp(context: android.content.Context?) {
     var language by remember { mutableStateOf("en") }
     var useDarkTheme by remember { mutableStateOf(false) }
 
@@ -103,7 +103,7 @@ fun AndroidApp() {
                             SearchScreen(onOpenAnimal = { id ->
                                 navController.currentBackStackEntry?.savedStateHandle?.set("animalId", id)
                                 navController.navigate("Animal")
-                            })
+                            }, language = language, context = context)
                         }
                         composable(Route.AI.name) { AIScreen() }
                         composable(Route.Map.name) { MapScreen() }
@@ -117,10 +117,8 @@ fun AndroidApp() {
                         }
                         // Non-tab destination: Animal detail
                         composable("Animal") { backStackEntry ->
-//                            val id = backStackEntry.arguments?.getString("id") ?: ""
-//                            val id = backStackEntry.savedStateHandle.get<String>("animalId") ?: ""
                             val id = navController.previousBackStackEntry?.savedStateHandle?.get<String>("animalId") ?: ""
-                            AnimalScreen(id = id)
+                            AnimalScreen(id = id, language = language, context = context)
                         }
                     }
                 }

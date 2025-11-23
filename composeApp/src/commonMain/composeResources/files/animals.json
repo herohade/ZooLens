@@ -1,0 +1,69 @@
+{
+  "animals": {
+    "alpaka": {
+      "id": "alpaka",
+      "scientificName": "Vicugna pacos",
+      "continent": {
+        "de": "Amerika",
+        "en": "America"
+      },
+      "conservationStatus": {
+        "de": "Nicht beurteilt",
+        "en": "Not evaluated"
+      },
+      "taxonomy": {
+        "family": {
+          "de": "Kamele",
+          "en": "Camelids"
+        },
+        "latinFamily": "Camelidae"
+      },
+      "weight": {
+        "text": "55 – 65 kg",
+        "minKg": 55,
+        "maxKg": 65
+      },
+      "habitat": {
+        "de": ["Kalte Höhenlagen", "Grasland und Steppen"],
+        "en": ["Cold high altitudes", "Grasslands and steppes"]
+      },
+      "diet": {
+        "de": "Gras (ca. 1 kg pro Tag)",
+        "en": "Grass (approx. 1 kg per day)"
+      },
+      "lifespan": {
+        "wild": null,
+        "captivity": null
+      },
+      "translations": {
+        "de": {
+          "name": "Alpaka",
+          "shortDescription": "Seit vielen Tausend Jahren werden Alpakas in den Anden zur Wollgewinnung gezüchtet. Sie fressen sehr wenig und sind perfekt an die rauen Lebensbedingungen angepasst.",
+          "funFacts": [
+            "Alpakas und Lamas spucken mit erstaunlicher Treffsicherheit - die Spucke besteht hauptsächlich aus Futterbrei und ätzender Magensäure"
+          ],
+          "sections": [
+            {
+              "title": "Das Schaf der Anden",
+              "text": "Seit vielen Tausend Jahren werden Alpakas in den Anden zur Wollgewinnung gezüchtet. Die Einführung von Schafen durch die spanischen Eroberer im 17. Jh. hat sie an den Rand der Ausrottung gebracht. Mit dem Ende des Kolonialismus haben sich die Bestände schnell wieder erholt."
+            }
+          ]
+        },
+        "en": {
+          "name": "Alpaca",
+          "shortDescription": "For thousands of years, alpacas have been bred in the Andes for wool. They eat very little and are perfectly adapted to harsh living conditions.",
+          "funFacts": [
+            "Alpacas and llamas spit with amazing accuracy - the spit consists mainly of food pulp and caustic stomach acid"
+          ],
+          "sections": [
+            {
+              "title": "The sheep of the Andes",
+              "text": "For thousands of years, alpacas have been bred in the Andes for wool. The introduction of sheep by Spanish conquerors in the 17th century brought them to the brink of extinction. With the end of colonialism, populations quickly recovered."
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+

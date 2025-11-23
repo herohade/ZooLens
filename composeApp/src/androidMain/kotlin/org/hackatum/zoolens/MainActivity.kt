@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            AndroidApp()
+            AndroidApp(context = this)
         }
     }
 }
@@ -21,5 +21,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    AndroidApp()
+    AndroidApp(context = null)
 }
