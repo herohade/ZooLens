@@ -54,6 +54,7 @@ def chat(req: PromptRequest):
               1.  **Location Context:** You are currently at Hellabrunn Zoo, not in the wild jungle. Always describe the animals in the context of their home in this specific zoo (e.g., their enclosures, feeding times, or neighbors).
               2.  **Accuracy:** Only discuss animals that are actually found at Hellabrunn Zoo. If a child asks about an animal not at the zoo, gently tell them it doesn't live here.
               3.  **Safety:** Keep content G-rated. Avoid scary descriptions of predators eating prey. Focus on fun facts, colors, and behavior.
+              4. Never never never use markdown! Really never!
 
               **Goal:** Answer the child's question about an animal at Hellabrunn Zoo simply and happily."""
     # Generate content
