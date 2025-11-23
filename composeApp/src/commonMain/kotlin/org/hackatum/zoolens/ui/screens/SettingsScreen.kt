@@ -1,6 +1,8 @@
 package org.hackatum.zoolens.ui.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -24,15 +26,18 @@ fun SettingsScreen(
     val isLight = !useDarkTheme
     val isDark = useDarkTheme
     Column(
-        Modifier.fillMaxSize(),
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 12.dp, vertical = 8.dp), // Reduced padding for small screens
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
+        verticalArrangement = Arrangement.Top // Top arrangement for better usability
     ) {
         Text(LocalStrings.current.settings, style = MaterialTheme.typography.headlineMedium)
         HorizontalDivider(Modifier.padding(vertical = 8.dp))
-        Text(LocalStrings.current.settingsGeneral, style = MaterialTheme.typography.titleMedium, modifier = Modifier.align(Alignment.Start).padding(start = 24.dp))
+        Text(LocalStrings.current.settingsGeneral, style = MaterialTheme.typography.titleMedium, modifier = Modifier.align(Alignment.Start).padding(start = 12.dp)) // Reduced start padding
         Spacer(Modifier.height(8.dp))
-        Row(Modifier.fillMaxWidth().padding(horizontal = 24.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp), horizontalArrangement = Arrangement.SpaceBetween) { // Reduced horizontal padding
             Text(LocalStrings.current.settingsLanguage, style = MaterialTheme.typography.bodyLarge)
             Row {
                 RadioButton(
@@ -41,7 +46,7 @@ fun SettingsScreen(
                     colors = RadioButtonDefaults.colors()
                 )
                 Text(LocalStrings.current.settingsLanguageGerman, modifier = Modifier.align(Alignment.CenterVertically))
-                Spacer(Modifier.width(8.dp))
+                Spacer(Modifier.width(4.dp)) // Reduced spacing
                 RadioButton(
                     selected = isEnglish,
                     onClick = { onLanguageChange("en") },
@@ -50,7 +55,7 @@ fun SettingsScreen(
                 Text(LocalStrings.current.settingsLanguageEnglish, modifier = Modifier.align(Alignment.CenterVertically))
             }
         }
-        Row(Modifier.fillMaxWidth().padding(horizontal = 24.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp), horizontalArrangement = Arrangement.SpaceBetween) { // Reduced horizontal padding
             Text(LocalStrings.current.settingsTheme, style = MaterialTheme.typography.bodyLarge)
             Row {
                 RadioButton(
@@ -59,7 +64,7 @@ fun SettingsScreen(
                     colors = RadioButtonDefaults.colors()
                 )
                 Text(LocalStrings.current.settingsThemeLightLabel, modifier = Modifier.align(Alignment.CenterVertically))
-                Spacer(Modifier.width(8.dp))
+                Spacer(Modifier.width(4.dp)) // Reduced spacing
                 RadioButton(
                     selected = isDark,
                     onClick = { onThemeChange(true) },
@@ -69,9 +74,9 @@ fun SettingsScreen(
             }
         }
         HorizontalDivider(Modifier.padding(vertical = 8.dp))
-        Text(LocalStrings.current.settingsAbout, style = MaterialTheme.typography.titleMedium, modifier = Modifier.align(Alignment.Start).padding(start = 24.dp))
+        Text(LocalStrings.current.settingsAbout, style = MaterialTheme.typography.titleMedium, modifier = Modifier.align(Alignment.Start).padding(start = 12.dp)) // Reduced start padding
         Spacer(Modifier.height(8.dp))
-        Text(LocalStrings.current.settingsAboutVersion, style = MaterialTheme.typography.bodySmall, modifier = Modifier.align(Alignment.Start).padding(start = 24.dp))
-        Text(LocalStrings.current.settingsAboutCopyright, style = MaterialTheme.typography.bodySmall, modifier = Modifier.align(Alignment.Start).padding(start = 24.dp))
+        Text(LocalStrings.current.settingsAboutVersion, style = MaterialTheme.typography.bodySmall, modifier = Modifier.align(Alignment.Start).padding(start = 12.dp))
+        Text(LocalStrings.current.settingsAboutCopyright, style = MaterialTheme.typography.bodySmall, modifier = Modifier.align(Alignment.Start).padding(start = 12.dp))
     }
 }
