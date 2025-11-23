@@ -89,11 +89,8 @@ fun AIScreen() {
                                 llmOutput.value = Json.parseToJsonElement(response).jsonObject["response"]?.toString() ?: ""
                                 userInput.value = ""
 
-                                // TODO: Do something with the response, e.g., display it in the UI
-
                             } catch (e: Exception) {
                                 println("Error: ${e.message}")
-                                // TODO: Show an error message to the user
                             } finally {
                                 isLoading.value = false
                             }

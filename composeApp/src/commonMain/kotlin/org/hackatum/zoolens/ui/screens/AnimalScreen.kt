@@ -91,7 +91,7 @@ fun AnimalDescription(description: String, scrollState: androidx.compose.foundat
 }
 
 @Composable
-fun AssistantPanel(userInput: androidx.compose.runtime.MutableState<String>, llmOutput: androidx.compose.runtime.MutableState<String>, isLoading: androidx.compose.runtime.MutableState<Boolean>) {
+fun AssistantPanel(userInput: androidx.compose.runtime.MutableState<String>, llmOutput: androidx.compose.runtime.MutableState<String>, isLoading: androidx.compose.runtime.MutableState<Boolean>, animalName: String, language: String) {
     val coroutineScope = rememberCoroutineScope()
 
     Column(
@@ -132,10 +132,17 @@ fun AssistantPanel(userInput: androidx.compose.runtime.MutableState<String>, llm
                         coroutineScope.launch {
                             isLoading.value = true
                             try {
+                                // Build context based on animal and language
+                                val contextMessage = if (language == "de") {
+                                    "Der Benutzer steht vor dem $animalName Gehege. ${message}"
+                                } else {
+                                    "The user is standing in front of the $animalName cage. $message"
+                                }
+
                                 val response: String =
                                     animalApiClient.post("http://10.0.2.2:8000/chat") {
                                         contentType(ContentType.Application.Json)
-                                        setBody(ChatRequest(message = message))
+                                        setBody(ChatRequest(message = contextMessage))
                                     }.bodyAsText()
 
                                 println("LLM Response: $response")
@@ -403,6 +410,6 @@ fun AnimalScreen(id: String) {
             scrollState = scrollState,
             modifier = Modifier.weight(1f)
         )
-        AssistantPanel(userInput, llmOutput, isLoading)
+        AssistantPanel(userInput, llmOutput, isLoading, content.name, language)
     }
 }
