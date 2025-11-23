@@ -56,6 +56,15 @@ kotlin {
             implementation(projects.shared)
             implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.1")
             implementation(libs.kotlinx.serialization.json)
+            implementation("io.ktor:ktor-client-core:3.0.1")
+            implementation("io.ktor:ktor-client-android:3.0.1")
+            implementation("io.ktor:ktor-client-content-negotiation:3.0.1")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:3.0.1")
+
+            // Coroutines (usually already there)
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
