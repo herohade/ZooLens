@@ -25,6 +25,8 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
 import org.hackatum.zoolens.ChatRequest
 import org.hackatum.zoolens.i18n.LocalStrings
 import org.jetbrains.compose.resources.painterResource
@@ -40,6 +42,8 @@ val apiClient = HttpClient {
 @Composable
 fun AIScreen() {
     val userInput = remember { mutableStateOf("") }
+    val llmOutput = remember { mutableStateOf("") }
+    val isLoading = remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -60,7 +64,8 @@ fun AIScreen() {
                 singleLine = true,
                 textStyle = MaterialTheme.typography.bodySmall.copy(
                     color = MaterialTheme.colorScheme.onSurface
-                )
+                ),
+                enabled = !isLoading.value
             )
 
             IconButton(
@@ -71,6 +76,7 @@ fun AIScreen() {
                     if (message.isNotBlank()) {
                         // --- TODO Implemented ---
                         coroutineScope.launch {
+                            isLoading.value = true
                             try {
                                 // NOTE: For Android Emulator, use 10.0.2.2 instead of localhost
                                 val response: String =
@@ -80,22 +86,44 @@ fun AIScreen() {
                                     }.bodyAsText()
 
                                 println("LLM Response: $response")
+                                llmOutput.value = Json.parseToJsonElement(response).jsonObject["response"]?.toString() ?: ""
+                                userInput.value = ""
+
                                 // TODO: Do something with the response, e.g., display it in the UI
 
                             } catch (e: Exception) {
                                 println("Error: ${e.message}")
                                 // TODO: Show an error message to the user
+                            } finally {
+                                isLoading.value = false
                             }
                         }
                     }
-                        userInput.value = ""
+
                 },
-                modifier = Modifier.padding(end = 4.dp)
+                modifier = Modifier.padding(end = 4.dp),
+                enabled = !isLoading.value
             ) {
                 Icon(
 //                        imageVector = Icons.AutoMirrored.Filled.Send,
                     painter = painterResource(Res.drawable.compose_multiplatform),
                     contentDescription = "Send message"
+                )
+            }
+        }
+
+        // Display LLM output
+        if (llmOutput.value.isNotEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .align(Alignment.BottomCenter)
+            ) {
+                Text(
+                    text = llmOutput.value.trim('"'),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }
