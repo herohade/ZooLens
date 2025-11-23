@@ -11,15 +11,30 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import org.hackatum.zoolens.ChatRequest
 import org.hackatum.zoolens.i18n.LocalStrings
 import org.hackatum.zoolens.model.AnimalWrapper
 import org.hackatum.zoolens.model.getContent
@@ -33,6 +48,13 @@ import zoolens.composeapp.generated.resources.alpaka
 import zoolens.composeapp.generated.resources.alpensteinbock
 import zoolens.composeapp.generated.resources.alpensteinhuhn
 import zoolens.composeapp.generated.resources.aldabra_riesenschildkroete
+import zoolens.composeapp.generated.resources.compose_multiplatform
+
+val animalApiClient = HttpClient {
+    install(ContentNegotiation) {
+        json()
+    }
+}
 
 @Composable
 fun AnimalName(name: String) {
@@ -69,7 +91,9 @@ fun AnimalDescription(description: String, scrollState: androidx.compose.foundat
 }
 
 @Composable
-fun AssistantPanel(userInput: androidx.compose.runtime.MutableState<String>) {
+fun AssistantPanel(userInput: androidx.compose.runtime.MutableState<String>, llmOutput: androidx.compose.runtime.MutableState<String>, isLoading: androidx.compose.runtime.MutableState<Boolean>) {
+    val coroutineScope = rememberCoroutineScope()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -97,8 +121,61 @@ fun AssistantPanel(userInput: androidx.compose.runtime.MutableState<String>) {
                 singleLine = true,
                 textStyle = MaterialTheme.typography.bodySmall.copy(
                     color = MaterialTheme.colorScheme.onSurface
-                )
+                ),
+                enabled = !isLoading.value
             )
+
+            IconButton(
+                onClick = {
+                    val message = userInput.value
+                    if (message.isNotBlank()) {
+                        coroutineScope.launch {
+                            isLoading.value = true
+                            try {
+                                val response: String =
+                                    animalApiClient.post("http://10.0.2.2:8000/chat") {
+                                        contentType(ContentType.Application.Json)
+                                        setBody(ChatRequest(message = message))
+                                    }.bodyAsText()
+
+                                println("LLM Response: $response")
+                                llmOutput.value = Json.parseToJsonElement(response).jsonObject["response"]?.toString() ?: ""
+                                userInput.value = ""
+
+                            } catch (e: Exception) {
+                                println("Error: ${e.message}")
+                                llmOutput.value = "Error: ${e.message}"
+                            } finally {
+                                isLoading.value = false
+                            }
+                        }
+                    }
+                },
+                modifier = Modifier.padding(end = 4.dp),
+                enabled = !isLoading.value
+            ) {
+                Icon(
+                    painter = painterResource(Res.drawable.compose_multiplatform),
+                    contentDescription = "Send message"
+                )
+            }
+        }
+
+        // Display LLM output
+        if (llmOutput.value.isNotEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .background(MaterialTheme.colorScheme.secondaryContainer, androidx.compose.foundation.shape.RoundedCornerShape(8.dp))
+                    .padding(12.dp)
+            ) {
+                Text(
+                    text = llmOutput.value.trim('"'),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+            }
         }
     }
 }
@@ -107,6 +184,8 @@ fun AssistantPanel(userInput: androidx.compose.runtime.MutableState<String>) {
 @Preview
 fun AnimalScreen(id: String) {
     val userInput = remember { mutableStateOf("") }
+    val llmOutput = remember { mutableStateOf("") }
+    val isLoading = remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
 
     // Get language dynamically from LocalStrings
@@ -324,6 +403,6 @@ fun AnimalScreen(id: String) {
             scrollState = scrollState,
             modifier = Modifier.weight(1f)
         )
-        AssistantPanel(userInput)
+        AssistantPanel(userInput, llmOutput, isLoading)
     }
 }
