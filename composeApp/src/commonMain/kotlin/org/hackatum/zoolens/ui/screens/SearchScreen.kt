@@ -1,5 +1,7 @@
 package org.hackatum.zoolens.ui.screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,9 +35,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.layout.ContentScale
 import org.hackatum.zoolens.i18n.LocalStrings
 import org.hackatum.zoolens.model.AnimalWrapper
 import org.hackatum.zoolens.model.getContent
+import org.jetbrains.compose.resources.painterResource
+import zoolens.composeapp.generated.resources.Res
+import zoolens.composeapp.generated.resources.loewe
+import zoolens.composeapp.generated.resources.giraffe
+import zoolens.composeapp.generated.resources.asiatischer_elefant
 import kotlin.math.max
 
 @Composable
@@ -203,6 +211,7 @@ fun SearchScreen(
                         items(filtered) { wrapper ->
                             val content = wrapper.getContent(language)
                             AnimalGridItem(
+                                id = wrapper.id,
                                 name = content.name,
                                 itemWidth = itemWidth,
                                 onClick = { onOpenAnimal(wrapper.id) }
@@ -216,8 +225,15 @@ fun SearchScreen(
 }
 
 @Composable
-private fun AnimalGridItem(name: String, itemWidth: Dp, onClick: () -> Unit = {}) {
-    // Make each item a square by forcing aspect ratio 1:1
+private fun AnimalGridItem(id: String, name: String, itemWidth: Dp, onClick: () -> Unit = {}) {
+    // Get the appropriate drawable resource based on animal ID
+    val imageResource = when (id) {
+        "1" -> Res.drawable.loewe
+        "2" -> Res.drawable.giraffe
+        "3" -> Res.drawable.asiatischer_elefant
+        else -> Res.drawable.loewe
+    }
+
     Card(
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
@@ -226,27 +242,34 @@ private fun AnimalGridItem(name: String, itemWidth: Dp, onClick: () -> Unit = {}
             .clickable(onClick = onClick),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        // Single Column fills the card and pushes content to the bottom so headings + scientificName are aligned
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(12.dp),
-            verticalArrangement = Arrangement.Bottom,
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.BottomCenter
         ) {
-            // Inner column keeps texts grouped and centered horizontally
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+            // Image fills the entire card
+            Image(
+                painter = painterResource(imageResource),
+                contentDescription = name,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+
+            // Name overlay at the bottom with semi-transparent background
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(androidx.compose.ui.graphics.Color.Black.copy(alpha = 0.6f))
+                    .padding(8.dp),
+                contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = name,
                     modifier = Modifier.fillMaxWidth(),
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleSmall,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = androidx.compose.ui.graphics.Color.White
                 )
             }
         }

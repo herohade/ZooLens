@@ -1,10 +1,12 @@
 package org.hackatum.zoolens.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
@@ -16,11 +18,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import org.hackatum.zoolens.i18n.LocalStrings
 import org.hackatum.zoolens.model.AnimalWrapper
 import org.hackatum.zoolens.model.getContent
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import zoolens.composeapp.generated.resources.Res
+import zoolens.composeapp.generated.resources.loewe
+import zoolens.composeapp.generated.resources.giraffe
+import zoolens.composeapp.generated.resources.asiatischer_elefant
 
 @Composable
 fun AnimalName(name: String) {
@@ -176,10 +184,29 @@ fun AnimalScreen(id: String, language: String = "en") {
     )[(id.toIntOrNull() ?: 1) - 1]
     val content = contentWrapper.getContent(language)
 
+    // Get the appropriate drawable resource based on animal ID
+    val imageResource = when (id) {
+        "1" -> Res.drawable.loewe
+        "2" -> Res.drawable.giraffe
+        "3" -> Res.drawable.asiatischer_elefant
+        else -> Res.drawable.loewe
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         AnimalName(content.name)
         AnimalScientificName(content.scientific_name)
-        // Image here if I don't forget lolol
+
+        // Large animal image
+        Image(
+            painter = painterResource(imageResource),
+            contentDescription = content.name,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(280.dp)
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            contentScale = ContentScale.Crop
+        )
+
         AnimalDescription(
             description = content.shortDescription,
             scrollState = scrollState,
