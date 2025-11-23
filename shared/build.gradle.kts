@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -29,6 +30,9 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
+            implementation(libs.kotlinx.serialization.json)
+        }
+        commonTest.dependencies {
             // put your Multiplatform dependencies here
         }
         commonTest.dependencies {

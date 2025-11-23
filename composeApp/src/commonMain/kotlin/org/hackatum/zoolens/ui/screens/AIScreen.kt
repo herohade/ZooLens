@@ -16,19 +16,26 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.launch
-import kotlinx.serialization.Serializable
+import org.hackatum.zoolens.ChatRequest
 import org.hackatum.zoolens.i18n.LocalStrings
-import org.hackatum.zoolens.network.apiClient
 import org.jetbrains.compose.resources.painterResource
 import zoolens.composeapp.generated.resources.Res
 import zoolens.composeapp.generated.resources.compose_multiplatform
-import zoolens.composeapp.generated.resources.send
+
+val apiClient = HttpClient {
+    install(ContentNegotiation) {
+        json()
+    }
+}
 
 @Composable
 fun AIScreen() {
